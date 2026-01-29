@@ -90,8 +90,7 @@ export function CTASection({ locale, dictionary }: CTASectionProps) {
 
           {/* Title */}
           <TextReveal
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6"
-            // className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-800 dark:text-neutral-100 mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-800 dark:text-neutral-100 mb-6"
             type="words"
             staggerDelay={0.05}
           >

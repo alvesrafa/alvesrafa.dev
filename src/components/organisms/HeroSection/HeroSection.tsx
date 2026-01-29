@@ -123,7 +123,7 @@ export function HeroSection({ locale, dictionary }: HeroSectionProps) {
           <motion.div variants={itemVariants}>
             <TextReveal
               className="text-5xl md:text-7xl lg:text-8xl font-bold text-neutral-800 dark:text-neutral-100 mb-6"
-              type="chars"
+              type="words"
               staggerDelay={0.02}
             >
               {dictionary.name}

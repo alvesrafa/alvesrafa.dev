@@ -46,7 +46,13 @@ export function TextReveal({
       animate={isInView ? 'visible' : 'hidden'}
     >
       {elements.map((element, i) => (
-        <span key={i} className="inline-block overflow-hidden">
+        <span
+          key={i}
+          className={cn(
+            'inline-block overflow-hidden',
+            type === 'words' && i < elements.length - 1 && 'mr-[0.25em]'
+          )}
+        >
           <motion.span
             className="inline-block"
             variants={{
@@ -64,7 +70,6 @@ export function TextReveal({
           >
             {element}
           </motion.span>
-          {' '}
           {i < elements.length - 1 && separator}
         </span>
       ))}
