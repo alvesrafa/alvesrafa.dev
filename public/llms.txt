@@ -1,0 +1,34 @@
+# Rafael Alves - Portfolio
+> Tech Lead & Full Stack Developer
+
+## About
+Rafael Alves de Jesus is a Tech Lead at Luby Software, based in Ilhabela, São Paulo, Brazil.
+He specializes in React, Next.js, Node.js, TypeScript, and cloud architecture (AWS).
+With 5+ years of experience in full-stack development, he builds scalable web and mobile applications.
+
+## Contact
+- Email: alvesrafa.dev@gmail.com
+- LinkedIn: https://www.linkedin.com/in/alvrafael/
+- GitHub: https://github.com/alvesrafa
+- Website: https://alvesrafa.dev
+
+## Current Role
+Tech Lead at Luby Software (March 2025 - Present)
+- Leading development teams in technical excellence and innovation
+- Defining clean code standards and security practices
+- Overseeing cloud deployments with AWS microservices
+- Mentoring developers and collaborating on product strategy
+
+## Skills
+Frontend: React, Next.js, React Native, Expo, TypeScript, JavaScript, Tailwind CSS
+Backend: Node.js, NestJS, Express, AdonisJS, PHP, Laravel, GoLang
+Databases: PostgreSQL, MySQL, MongoDB, Redis
+Cloud & Tools: AWS, Docker, Git, Vercel, CI/CD
+
+## Education
+- Technologist in Systems Analysis and Development - IFSP (2017-2019)
+- AWS Certified Cloud Practitioner (2023-2026)
+
+## Languages
+- Portuguese (Native)
+- English (Intermediate)

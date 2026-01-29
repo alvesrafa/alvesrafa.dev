@@ -1,0 +1,135 @@
+{
+  "metadata": {
+    "home": {
+      "title": "Rafael Alves | Tech Lead & Desenvolvedor Full Stack",
+      "description": "Tech Lead na Luby Software especializado em React, Next.js, Node.js, TypeScript e arquitetura cloud. Baseado em Ilhabela, Brasil. Construindo aplicações web e mobile escaláveis."
+    },
+    "about": {
+      "title": "Sobre Mim",
+      "description": "Conheça minha jornada como desenvolvedor de software e tech lead. 5+ anos de experiência em desenvolvimento full-stack com React, Node.js e AWS."
+    },
+    "projects": {
+      "title": "Projetos",
+      "description": "Explore meu portfólio de projetos web e mobile construídos com React, Next.js, React Native, Node.js e mais."
+    },
+    "contact": {
+      "title": "Contato",
+      "description": "Entre em contato para discutir seu projeto ou oportunidades de colaboração. Disponível para consultoria e desenvolvimento full-stack."
+    }
+  },
+  "nav": {
+    "home": "Início",
+    "about": "Sobre",
+    "projects": "Projetos",
+    "contact": "Contato"
+  },
+  "hero": {
+    "greeting": "Olá, eu sou",
+    "name": "Rafael Alves",
+    "role": "Tech Lead & Desenvolvedor Full Stack",
+    "tagline": "Construindo soluções escaláveis com tecnologias modernas. Apaixonado por React, Node.js e arquitetura cloud.",
+    "cta": {
+      "projects": "Ver Projetos",
+      "contact": "Entre em Contato"
+    },
+    "scroll": "Role para explorar"
+  },
+  "about": {
+    "title": "Sobre Mim",
+    "subtitle": "Conheça minha jornada",
+    "intro": "Quando finalizei minha graduação em Análise e Desenvolvimento de Sistemas em 2019, descobri minha paixão pelo desenvolvimento web através do JavaScript e TypeScript. Desde então, tenho me dedicado a construir aplicações robustas usando Node.js, React e React Native.",
+    "extended": "Com experiência em múltiplos projetos, linguagens de programação e ambientes de deploy, trago um conjunto versátil de habilidades para cada desafio. Atualmente liderando equipes de desenvolvimento na Luby Software, foco em impulsionar a excelência técnica, definir padrões de código limpo e mentorar desenvolvedores para alcançarem seu potencial máximo.",
+    "experience": {
+      "title": "Experiência Profissional",
+      "current": "Atual"
+    },
+    "skills": {
+      "title": "Habilidades & Tecnologias",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "tools": "Ferramentas & Cloud"
+    },
+    "education": {
+      "title": "Formação",
+      "certifications": "Certificações"
+    },
+    "downloadCV": "Baixar CV"
+  },
+  "projects": {
+    "title": "Projetos",
+    "subtitle": "Uma seleção do meu trabalho",
+    "description": "Aqui estão alguns dos meus projetos em destaque. Cada um representa um desafio único e oportunidade de aprendizado.",
+    "filter": {
+      "all": "Todos",
+      "featured": "Destaque",
+      "web": "Web",
+      "mobile": "Mobile",
+      "api": "API"
+    },
+    "viewProject": "Ver Projeto",
+    "viewCode": "Ver Código",
+    "technologies": "Tecnologias",
+    "noProjects": "Nenhum projeto encontrado nesta categoria.",
+    "fromGitHub": "Obtido do GitHub"
+  },
+  "contact": {
+    "title": "Entre em Contato",
+    "subtitle": "Vamos trabalhar juntos",
+    "description": "Tem um projeto em mente ou quer discutir oportunidades de colaboração? Adoraria ouvir de você.",
+    "form": {
+      "name": "Nome",
+      "namePlaceholder": "Seu nome",
+      "email": "Email",
+      "emailPlaceholder": "seu@email.com",
+      "subject": "Assunto",
+      "subjectPlaceholder": "Sobre o que é?",
+      "message": "Mensagem",
+      "messagePlaceholder": "Conte-me sobre seu projeto...",
+      "submit": "Enviar Mensagem",
+      "sending": "Enviando...",
+      "success": "Mensagem enviada com sucesso! Retornarei em breve.",
+      "error": "Falha ao enviar mensagem. Tente novamente ou me envie um email diretamente."
+    },
+    "info": {
+      "title": "Informações de Contato",
+      "email": "Email",
+      "location": "Localização",
+      "availability": "Disponibilidade",
+      "availabilityText": "Aberto a novas oportunidades"
+    },
+    "social": {
+      "title": "Conecte-se comigo"
+    }
+  },
+  "footer": {
+    "copyright": "Todos os direitos reservados.",
+    "builtWith": "Feito com",
+    "and": "e",
+    "deployedOn": "Deploy na"
+  },
+  "common": {
+    "loading": "Carregando...",
+    "error": "Algo deu errado",
+    "retry": "Tentar novamente",
+    "back": "Voltar",
+    "close": "Fechar",
+    "open": "Abrir",
+    "readMore": "Ler mais",
+    "showLess": "Ver menos"
+  },
+  "accessibility": {
+    "skipToMain": "Pular para conteúdo principal",
+    "toggleTheme": "Alternar tema claro/escuro",
+    "switchLanguage": "Mudar idioma",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "externalLink": "Abre em nova aba"
+  },
+  "errors": {
+    "404": {
+      "title": "Página Não Encontrada",
+      "description": "A página que você está procurando não existe ou foi movida.",
+      "backHome": "Voltar ao início"
+    }
+  }
+}

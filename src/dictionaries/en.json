@@ -1,0 +1,135 @@
+{
+  "metadata": {
+    "home": {
+      "title": "Rafael Alves | Tech Lead & Full Stack Developer",
+      "description": "Tech Lead at Luby Software specializing in React, Next.js, Node.js, TypeScript, and cloud architecture. Based in Ilhabela, Brazil. Building scalable web and mobile applications."
+    },
+    "about": {
+      "title": "About Me",
+      "description": "Learn about my journey as a software developer and tech lead. 5+ years of experience in full-stack development with React, Node.js, and AWS."
+    },
+    "projects": {
+      "title": "Projects",
+      "description": "Explore my portfolio of web and mobile projects built with React, Next.js, React Native, Node.js, and more."
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Get in touch to discuss your project or collaboration opportunities. Available for consulting and full-stack development."
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hello, I'm",
+    "name": "Rafael Alves",
+    "role": "Tech Lead & Full Stack Developer",
+    "tagline": "Building scalable solutions with modern technologies. Passionate about React, Node.js, and cloud architecture.",
+    "cta": {
+      "projects": "View Projects",
+      "contact": "Get in Touch"
+    },
+    "scroll": "Scroll to explore"
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Get to know my journey",
+    "intro": "When I finished my degree in Systems Analysis and Development in 2019, I discovered my passion for web development through JavaScript and TypeScript. Since then, I've been dedicated to building robust applications using Node.js, React, and React Native.",
+    "extended": "With experience across multiple projects, programming languages, and deployment environments, I bring a versatile skill set to every challenge. Currently leading development teams at Luby Software, I focus on driving technical excellence, defining clean code standards, and mentoring developers to reach their full potential.",
+    "experience": {
+      "title": "Professional Experience",
+      "current": "Present"
+    },
+    "skills": {
+      "title": "Skills & Technologies",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "tools": "Tools & Cloud"
+    },
+    "education": {
+      "title": "Education",
+      "certifications": "Certifications"
+    },
+    "downloadCV": "Download CV"
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "A selection of my work",
+    "description": "Here are some of my featured projects. Each one represents a unique challenge and learning opportunity.",
+    "filter": {
+      "all": "All",
+      "featured": "Featured",
+      "web": "Web",
+      "mobile": "Mobile",
+      "api": "API"
+    },
+    "viewProject": "View Project",
+    "viewCode": "View Code",
+    "technologies": "Technologies",
+    "noProjects": "No projects found in this category.",
+    "fromGitHub": "Fetched from GitHub"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Let's work together",
+    "description": "Have a project in mind or want to discuss collaboration opportunities? I'd love to hear from you.",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "What's this about?",
+      "message": "Message",
+      "messagePlaceholder": "Tell me about your project...",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully! I'll get back to you soon.",
+      "error": "Failed to send message. Please try again or email me directly."
+    },
+    "info": {
+      "title": "Contact Information",
+      "email": "Email",
+      "location": "Location",
+      "availability": "Availability",
+      "availabilityText": "Open to new opportunities"
+    },
+    "social": {
+      "title": "Connect with me"
+    }
+  },
+  "footer": {
+    "copyright": "All rights reserved.",
+    "builtWith": "Built with",
+    "and": "and",
+    "deployedOn": "Deployed on"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try again",
+    "back": "Back",
+    "close": "Close",
+    "open": "Open",
+    "readMore": "Read more",
+    "showLess": "Show less"
+  },
+  "accessibility": {
+    "skipToMain": "Skip to main content",
+    "toggleTheme": "Toggle dark/light theme",
+    "switchLanguage": "Switch language",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "externalLink": "Opens in new tab"
+  },
+  "errors": {
+    "404": {
+      "title": "Page Not Found",
+      "description": "The page you're looking for doesn't exist or has been moved.",
+      "backHome": "Go back home"
+    }
+  }
+}
