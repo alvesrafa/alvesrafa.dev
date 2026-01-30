@@ -113,7 +113,7 @@ function ParticleField({ count = 500, isDark }: { count?: number; isDark: boolea
       </bufferGeometry>
       <pointsMaterial
         size={0.02}
-        color={isDark ? '#4e8098' : '#4e8098'}
+        color={isDark ? '#38bdf8' : '#0ea5e9'}
         transparent
         opacity={0.6}
         sizeAttenuation
@@ -155,8 +155,8 @@ function MouseFollower({ isDark }: { isDark: boolean }) {
 }
 
 function SceneContent({ isDark }: { isDark: boolean }) {
-  const primaryColor = isDark ? '#90c2e7' : '#4e8098';
-  const accentColor = isDark ? '#e84855' : '#a31621';
+  const primaryColor = isDark ? '#38bdf8' : '#0ea5e9';
+  const accentColor = isDark ? '#22d3ee' : '#06b6d4';
 
   return (
     <>

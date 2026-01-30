@@ -1,7 +1,7 @@
 {
   "metadata": {
     "home": {
-      "title": "Rafael Alves | Tech Lead & Full Stack Developer",
+      "title": "Rafael Alves | Tech Lead & Software architect",
       "description": "Tech Lead at Luby Software specializing in React, Next.js, Node.js, TypeScript, and cloud architecture. Based in Ilhabela, Brazil. Building scalable web and mobile applications."
     },
     "about": {
@@ -26,8 +26,8 @@
   "hero": {
     "greeting": "Hello, I'm",
     "name": "Rafael Alves",
-    "role": "Tech Lead & Full Stack Developer",
-    "tagline": "Building scalable solutions with modern technologies. Passionate about React, Node.js, and cloud architecture.",
+    "role": "Tech Lead & Software architect",
+    "tagline": "Crafting high-performance web experiences from database to deployment. Specializing in full-stack development with TypeScript, React, Node.js, and cloud architecture.",
     "cta": {
       "projects": "View Projects",
       "contact": "Get in Touch"

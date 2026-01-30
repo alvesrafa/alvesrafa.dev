@@ -6,9 +6,9 @@
   :root {
     --background: 248 249 250;
     --foreground: 33 37 41;
-    --primary: 78 128 152;
+    --primary: 14 165 233;
     --primary-foreground: 255 255 255;
-    --accent: 163 22 33;
+    --accent: 6 182 212;
     --accent-foreground: 255 255 255;
     --muted: 206 211 220;
     --muted-foreground: 73 80 87;
@@ -18,10 +18,10 @@
   .dark {
     --background: 18 20 22;
     --foreground: 241 243 245;
-    --primary: 144 194 231;
+    --primary: 56 189 248;
     --primary-foreground: 18 20 22;
-    --accent: 232 72 85;
-    --accent-foreground: 255 255 255;
+    --accent: 34 211 238;
+    --accent-foreground: 18 20 22;
     --muted: 52 58 64;
     --muted-foreground: 173 181 189;
     --border: 52 58 64;
@@ -82,7 +82,7 @@
 
   /* Gradient text */
   .gradient-text {
-    @apply bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-transparent dark:from-primary-300 dark:to-primary-500;
+    @apply bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent dark:from-primary-400 dark:via-secondary-400 dark:to-accent-400;
   }
 
   /* Tech badge */

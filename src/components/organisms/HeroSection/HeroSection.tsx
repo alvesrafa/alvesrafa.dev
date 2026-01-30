@@ -122,7 +122,7 @@ export function HeroSection({ locale, dictionary }: HeroSectionProps) {
           {/* Name with reveal effect */}
           <motion.div variants={itemVariants}>
             <TextReveal
-              className="text-5xl md:text-7xl lg:text-8xl font-bold text-neutral-800 dark:text-neutral-100 mb-6"
+              className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-neutral-800 dark:text-neutral-100 mb-6"
               type="words"
               staggerDelay={0.02}
             >
@@ -133,9 +133,9 @@ export function HeroSection({ locale, dictionary }: HeroSectionProps) {
           {/* Role with gradient */}
           <motion.h2
             variants={itemVariants}
-            className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-8"
+            className="text-2xl md:text-3xl lg:text-4xl font-display font-semibold mb-8"
           >
-            <span className="bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+            <span className="bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
               {dictionary.role}
             </span>
           </motion.h2>

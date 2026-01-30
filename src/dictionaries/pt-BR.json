@@ -1,7 +1,7 @@
 {
   "metadata": {
     "home": {
-      "title": "Rafael Alves | Tech Lead & Desenvolvedor Full Stack",
+      "title": "Rafael Alves | Tech Lead | Engenheiro de Software | Desenvolvedor Full Stack",
       "description": "Tech Lead na Luby Software especializado em React, Next.js, Node.js, TypeScript e arquitetura cloud. Baseado em Ilhabela, Brasil. Construindo aplicações web e mobile escaláveis."
     },
     "about": {
@@ -26,8 +26,8 @@
   "hero": {
     "greeting": "Olá, eu sou",
     "name": "Rafael Alves",
-    "role": "Tech Lead & Desenvolvedor Full Stack",
-    "tagline": "Construindo soluções escaláveis com tecnologias modernas. Apaixonado por React, Node.js e arquitetura cloud.",
+    "role": "Tech Lead & Engenheiro de Software",
+    "tagline": "Criando experiências web de alto desempenho do banco de dados ao deploy. Especializado em desenvolvimento full-stack com TypeScript, React, Node.js e arquitetura cloud.",
     "cta": {
       "projects": "Ver Projetos",
       "contact": "Entre em Contato"

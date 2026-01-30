@@ -1,4 +1,4 @@
-import { Inter, Fira_Code } from 'next/font/google';
+import { DM_Sans, Space_Grotesk, Fira_Code } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { i18nConfig, isValidLocale } from '@/lib/i18n/config';
 import { getDictionary } from '@/lib/i18n/dictionaries';
@@ -9,10 +9,18 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { generatePersonSchema, generateWebSiteSchema } from '@/lib/seo/schema';
 import type { Locale } from '@/types';
 
-const inter = Inter({
+const displayFont = Space_Grotesk({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-display',
+  weight: ['400', '500', '600', '700'],
+});
+
+const bodyFont = DM_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-body',
+  weight: ['400', '500', '700'],
 });
 
 const firaCode = Fira_Code({
@@ -49,7 +57,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${inter.variable} ${firaCode.variable}`}
+      className={`${displayFont.variable} ${bodyFont.variable} ${firaCode.variable}`}
       suppressHydrationWarning
     >
       <head>
