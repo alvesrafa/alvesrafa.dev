@@ -76,20 +76,6 @@
     "title": "Entre em Contato",
     "subtitle": "Vamos trabalhar juntos",
     "description": "Tem um projeto em mente ou quer discutir oportunidades de colaboração? Adoraria ouvir de você.",
-    "form": {
-      "name": "Nome",
-      "namePlaceholder": "Seu nome",
-      "email": "Email",
-      "emailPlaceholder": "seu@email.com",
-      "subject": "Assunto",
-      "subjectPlaceholder": "Sobre o que é?",
-      "message": "Mensagem",
-      "messagePlaceholder": "Conte-me sobre seu projeto...",
-      "submit": "Enviar Mensagem",
-      "sending": "Enviando...",
-      "success": "Mensagem enviada com sucesso! Retornarei em breve.",
-      "error": "Falha ao enviar mensagem. Tente novamente ou me envie um email diretamente."
-    },
     "info": {
       "title": "Informações de Contato",
       "email": "Email",
@@ -97,6 +83,7 @@
       "availability": "Disponibilidade",
       "availabilityText": "Aberto a novas oportunidades"
     },
+    "send":"Me envie um email.",
     "social": {
       "title": "Conecte-se comigo"
     }
