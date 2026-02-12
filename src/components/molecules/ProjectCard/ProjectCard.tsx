@@ -5,18 +5,24 @@ import { motion } from 'framer-motion';
 import { ExternalLink, Github, Star, GitFork } from 'lucide-react';
 import { Badge } from '@/components/atoms/Badge';
 import { cn } from '@/lib/utils/cn';
-import type { GitHubRepo } from '@/types';
+import type { ProjectItem } from '@/types';
+import { isFeaturedProject } from '@/types';
+import { getProjectDescription } from '@/lib/projects/merge';
 
 interface ProjectCardProps {
-  repo: GitHubRepo;
+  repo: ProjectItem;
   locale: 'en' | 'pt-BR';
   dictionary: {
     viewProject: string;
     viewCode: string;
+    featuredBadge: string;
   };
 }
 
 export function ProjectCard({ repo, locale, dictionary }: ProjectCardProps) {
+  const featured = isFeaturedProject(repo);
+  const description = getProjectDescription(repo, locale);
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
@@ -33,39 +39,78 @@ export function ProjectCard({ repo, locale, dictionary }: ProjectCardProps) {
       )}
     >
       {/* Project Image/Placeholder */}
-      <div className="relative h-48 bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/30 dark:to-primary-800/30 overflow-hidden">
-        <div className="absolute inset-0 bg-grid-pattern opacity-30" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-4xl font-bold text-primary-500/20 dark:text-primary-400/20">
-            {repo.name.charAt(0).toUpperCase()}
-          </span>
-        </div>
+      {featured && 'image' in repo && repo.image ? (
+        <div className="relative h-48 overflow-hidden bg-gray-100 dark:bg-gray-800">
+          <Image
+            src={repo.image}
+            alt={repo.name}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
 
-        {/* Language badge */}
-        {repo.language && (
+          {/* Featured badge */}
           <div className="absolute top-3 left-3">
-            <Badge variant="primary" size="sm">
-              {repo.language}
+            <Badge variant="overlay" size="sm">
+              {dictionary.featuredBadge}
             </Badge>
           </div>
-        )}
 
-        {/* Stats */}
-        <div className="absolute top-3 right-3 flex gap-2">
-          {repo.stargazers_count > 0 && (
-            <Badge variant="default" size="sm" className="flex items-center gap-1">
-              <Star className="h-3 w-3" />
-              {repo.stargazers_count}
-            </Badge>
-          )}
-          {repo.forks_count > 0 && (
-            <Badge variant="default" size="sm" className="flex items-center gap-1">
-              <GitFork className="h-3 w-3" />
-              {repo.forks_count}
-            </Badge>
+          {/* Language badge */}
+          {repo.language && (
+            <div className="absolute top-3 left-3 mt-8">
+              <Badge variant="overlay" size="sm">
+                {repo.language}
+              </Badge>
+            </div>
           )}
         </div>
-      </div>
+      ) : (
+        <div className="relative h-48 bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/30 dark:to-primary-800/30 overflow-hidden">
+          <div className="absolute inset-0 bg-grid-pattern opacity-30" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-4xl font-bold text-primary-500/20 dark:text-primary-400/20">
+              {repo.name.charAt(0).toUpperCase()}
+            </span>
+          </div>
+
+          {/* Featured badge */}
+          {featured && (
+            <div className="absolute top-3 left-3">
+              <Badge variant="primary" size="sm">
+                {dictionary.featuredBadge}
+              </Badge>
+            </div>
+          )}
+
+          {/* Language badge */}
+          {repo.language && (
+            <div className={cn("absolute top-3", featured ? "left-3 mt-8" : "left-3")}>
+              <Badge variant="primary" size="sm">
+                {repo.language}
+              </Badge>
+            </div>
+          )}
+
+          {/* Stats - only for GitHub repos */}
+          {!featured && (
+            <div className="absolute top-3 right-3 flex gap-2">
+              {'stargazers_count' in repo && repo.stargazers_count > 0 && (
+                <Badge variant="default" size="sm" className="flex items-center gap-1">
+                  <Star className="h-3 w-3" />
+                  {repo.stargazers_count}
+                </Badge>
+              )}
+              {'forks_count' in repo && repo.forks_count > 0 && (
+                <Badge variant="default" size="sm" className="flex items-center gap-1">
+                  <GitFork className="h-3 w-3" />
+                  {repo.forks_count}
+                </Badge>
+              )}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Content */}
       <div className="flex flex-col flex-grow p-5">
@@ -74,7 +119,7 @@ export function ProjectCard({ repo, locale, dictionary }: ProjectCardProps) {
         </h3>
 
         <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-2 flex-grow">
-          {repo.description || (locale === 'pt-BR' ? 'Sem descrição disponível' : 'No description available')}
+          {description || (locale === 'pt-BR' ? 'Sem descrição disponível' : 'No description available')}
         </p>
 
         {/* Topics/Tags */}
@@ -95,21 +140,25 @@ export function ProjectCard({ repo, locale, dictionary }: ProjectCardProps) {
 
         {/* Links */}
         <div className="flex gap-3 pt-4 border-t border-neutral-100 dark:border-neutral-800">
-          <a
-            href={repo.html_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              'flex items-center gap-1.5 text-sm font-medium',
-              'text-neutral-600 hover:text-primary-600',
-              'dark:text-neutral-400 dark:hover:text-primary-400',
-              'transition-colors'
-            )}
-          >
-            <Github className="h-4 w-4" />
-            {dictionary.viewCode}
-          </a>
+          {/* GitHub link - only for GitHub repos */}
+          {!featured && 'html_url' in repo && (
+            <a
+              href={repo.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                'flex items-center gap-1.5 text-sm font-medium',
+                'text-neutral-600 hover:text-primary-600',
+                'dark:text-neutral-400 dark:hover:text-primary-400',
+                'transition-colors'
+              )}
+            >
+              <Github className="h-4 w-4" />
+              {dictionary.viewCode}
+            </a>
+          )}
 
+          {/* Project link */}
           {repo.homepage && (
             <a
               href={repo.homepage}

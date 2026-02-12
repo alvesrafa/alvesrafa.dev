@@ -6,6 +6,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { ProjectCard } from '@/components/molecules/ProjectCard';
 import { Badge } from '@/components/atoms/Badge';
 import { getGitHubRepos } from '@/lib/github/api';
+import { mergeProjects, getProjectDescription } from '@/lib/projects/merge';
 import { siteConfig } from '@/lib/seo/constants';
 import { Github, Code2 } from 'lucide-react';
 import type { Locale } from '@/types';
@@ -31,7 +32,8 @@ export async function generateMetadata({
 export default async function ProjectsPage({ params }: ProjectsPageProps) {
   const { locale } = await params;
   const dictionary = await getDictionary(locale as Locale);
-  const repos = await getGitHubRepos();
+  const githubRepos = await getGitHubRepos();
+  const allProjects = mergeProjects(githubRepos, locale as Locale);
 
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: dictionary.nav.home, url: `${siteConfig.url}/${locale}` },
@@ -39,16 +41,16 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
   ]);
 
   const projectsSchema = generateProjectsListSchema(
-    repos.map((repo) => ({
-      name: repo.name,
-      description: repo.description || '',
-      url: repo.html_url,
+    allProjects.map((project) => ({
+      name: project.name,
+      description: getProjectDescription(project, locale as Locale),
+      url: 'homepage' in project && project.homepage ? project.homepage : ('html_url' in project ? project.html_url : ''),
     }))
   );
 
-  // Get unique languages from repos
+  // Get unique languages from all projects
   const languages = Array.from(
-    new Set(repos.map((r) => r.language).filter(Boolean))
+    new Set(allProjects.map((p) => p.language).filter(Boolean))
   ) as string[];
 
   return (
@@ -103,16 +105,17 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
           )}
 
           {/* Projects grid */}
-          {repos.length > 0 ? (
+          {allProjects.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {repos.map((repo) => (
+              {allProjects.map((project) => (
                 <ProjectCard
-                  key={repo.id}
-                  repo={repo}
+                  key={'id' in project && typeof project.id === 'number' ? project.id : project.id}
+                  repo={project}
                   locale={locale as Locale}
                   dictionary={{
                     viewProject: dictionary.projects.viewProject,
                     viewCode: dictionary.projects.viewCode,
+                    featuredBadge: dictionary.projects.featuredBadge,
                   }}
                 />
               ))}

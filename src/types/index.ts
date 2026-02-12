@@ -37,6 +37,23 @@ export interface GitHubRepo {
   updated_at: string;
 }
 
+export interface FeaturedProject {
+  id: string;
+  name: string;
+  description: LocalizedString;
+  homepage: string;
+  language: string;
+  topics: string[];
+  featured: true;
+  image?: string;
+}
+
+export type ProjectItem = GitHubRepo | FeaturedProject;
+
+export function isFeaturedProject(project: ProjectItem): project is FeaturedProject {
+  return 'featured' in project && project.featured === true;
+}
+
 export interface Experience {
   id: string;
   company: string;

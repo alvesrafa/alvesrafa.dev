@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils/cn';
 
-type BadgeVariant = 'default' | 'primary' | 'secondary' | 'accent' | 'outline';
+type BadgeVariant = 'default' | 'primary' | 'secondary' | 'accent' | 'outline' | 'overlay';
 type BadgeSize = 'sm' | 'md';
 
 interface BadgeProps {
@@ -21,6 +21,8 @@ const variantStyles: Record<BadgeVariant, string> = {
     'bg-accent-100 text-accent-700 dark:bg-accent-900/30 dark:text-accent-300',
   outline:
     'bg-transparent border border-neutral-300 text-neutral-700 dark:border-neutral-600 dark:text-neutral-300',
+  overlay:
+    'bg-neutral-900/90 text-white backdrop-blur-sm shadow-lg border border-white/10 dark:bg-neutral-900/90 dark:text-white dark:border-white/10',
 };
 
 const sizeStyles: Record<BadgeSize, string> = {

@@ -70,7 +70,8 @@
     "viewCode": "View Code",
     "technologies": "Technologies",
     "noProjects": "No projects found in this category.",
-    "fromGitHub": "Fetched from GitHub"
+    "fromGitHub": "Fetched from GitHub",
+    "featuredBadge": "Featured"
   },
   "contact": {
     "title": "Get in Touch",
