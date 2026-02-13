@@ -21,7 +21,9 @@
     "home": "Início",
     "about": "Sobre",
     "projects": "Projetos",
-    "contact": "Contato"
+    "contact": "Contato",
+    "latestProject": "Projeto Mais Recente",
+    "downloadResume": "Baixar Currículo"
   },
   "hero": {
     "greeting": "Olá, eu sou",

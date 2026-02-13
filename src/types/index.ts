@@ -108,6 +108,12 @@ export interface SocialLink {
   icon: string;
 }
 
+export interface QuickAction {
+  label: LocalizedString;
+  href: string;
+  variant?: 'default' | 'primary';
+}
+
 export interface ContactFormData {
   name: string;
   email: string;

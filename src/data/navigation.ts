@@ -1,4 +1,4 @@
-import type { NavItem, SocialLink } from '@/types';
+import type { NavItem, SocialLink, QuickAction } from '@/types';
 
 export const navigationItems: NavItem[] = [
   {
@@ -34,6 +34,14 @@ export const socialLinks: SocialLink[] = [
     name: 'Email',
     url: 'mailto:alvesrafa.dev@gmail.com',
     icon: 'mail',
+  },
+];
+
+export const quickActions: QuickAction[] = [
+  {
+    label: { en: 'Latest Project', 'pt-BR': 'Projeto Mais Recente' },
+    href: 'https://www.convide.site/',
+    variant: 'primary',
   },
 ];
 

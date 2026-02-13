@@ -21,7 +21,9 @@
     "home": "Home",
     "about": "About",
     "projects": "Projects",
-    "contact": "Contact"
+    "contact": "Contact",
+    "latestProject": "Latest Project",
+    "downloadResume": "Download Resume"
   },
   "hero": {
     "greeting": "Hello, I'm",

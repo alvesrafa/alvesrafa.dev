@@ -1,4 +1,4 @@
-import { DM_Sans, Space_Grotesk, Fira_Code } from 'next/font/google';
+import { DM_Sans, Space_Grotesk, Fira_Code, Playfair_Display } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { i18nConfig, isValidLocale } from '@/lib/i18n/config';
 import { getDictionary } from '@/lib/i18n/dictionaries';
@@ -13,6 +13,13 @@ const displayFont = Space_Grotesk({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-display',
+  weight: ['400', '500', '600', '700'],
+});
+
+const serifFont = Playfair_Display({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-serif',
   weight: ['400', '500', '600', '700'],
 });
 
@@ -57,7 +64,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${displayFont.variable} ${bodyFont.variable} ${firaCode.variable}`}
+      className={`${displayFont.variable} ${serifFont.variable} ${bodyFont.variable} ${firaCode.variable}`}
       suppressHydrationWarning
     >
       <head>

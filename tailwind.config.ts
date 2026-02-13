@@ -65,6 +65,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-body)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-serif)', 'Georgia', 'serif'],
         display: ['var(--font-display)', 'system-ui', 'sans-serif'],
         mono: ['var(--font-fira-code)', 'Menlo', 'Monaco', 'monospace'],
       },
