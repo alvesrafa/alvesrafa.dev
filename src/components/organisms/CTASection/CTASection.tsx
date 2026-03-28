@@ -1,12 +1,10 @@
 'use client';
 
-import { Button } from '@/components/atoms/Button';
-import { MagneticElement } from '@/components/effects/MagneticElement';
-import { TextReveal } from '@/components/effects/TextReveal';
-import type { Locale } from '@/types';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Sparkles } from 'lucide-react';
 import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
+import { personalInfo } from '@/data/navigation';
+import type { Locale } from '@/types';
 
 interface CTASectionProps {
   locale: Locale;
@@ -19,128 +17,70 @@ interface CTASectionProps {
 }
 
 export function CTASection({ locale, dictionary }: CTASectionProps) {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.5, 1, 1, 0.5]);
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
     <section
-      ref={sectionRef}
-      className="section-padding relative overflow-hidden"
+      ref={ref}
+      className="section-padding border-t border-neutral-200 dark:border-neutral-800"
     >
-      {/* Animated gradient background */}
-      <motion.div
-        className="absolute inset-0 -z-10"
-        style={{ y: backgroundY, opacity }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900 dark:from-primary-900 dark:via-primary-800 dark:to-neutral-950" />
+      <div className="container-custom">
+        <div className="max-w-3xl">
 
-        {/* Animated orbs */}
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-64 h-64 bg-accent-500/30 rounded-full blur-3xl"
-          animate={{
-            x: [0, 50, 0],
-            y: [0, -30, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary-400/20 rounded-full blur-3xl"
-          animate={{
-            x: [0, -30, 0],
-            y: [0, 50, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-        />
-
-        {/* Grid pattern */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
-
-        {/* Noise texture */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-          }}
-        />
-      </motion.div>
-
-      <div className="container-custom relative z-10">
-        <div className="max-w-3xl mx-auto text-center">
-          {/* Decorative sparkle */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8"
+          {/* Label */}
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.4 }}
+            className="label-mono mb-8"
           >
-            <Sparkles className="w-4 h-4 text-accent-300" />
-            <span className="text-sm font-medium text-white/90">
-              {locale === 'pt-BR' ? 'Vamos trabalhar juntos' : "Let's work together"}
-            </span>
-          </motion.div>
+            {locale === 'pt-BR' ? 'Vamos trabalhar juntos' : "Let's work together"}
+          </motion.p>
 
-          {/* Title */}
-          <TextReveal
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-800 dark:text-neutral-100 mb-6"
-            type="words"
-            staggerDelay={0.05}
+          {/* Headline */}
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.55, delay: 0.07, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-neutral-900 dark:text-neutral-50 tracking-tight leading-[1.06] mb-8"
           >
             {dictionary.subtitle}
-          </TextReveal>
+          </motion.h2>
+
+          {/* Divider */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={isInView ? { scaleX: 1 } : {}}
+            style={{ originX: 0 }}
+            transition={{ duration: 0.65, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="h-px bg-neutral-200 dark:bg-neutral-800 mb-8"
+          />
 
           {/* Description */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-lg md:text-xl text-primary-100 mb-10 leading-relaxed"
+            initial={{ opacity: 0, y: 10 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.45, delay: 0.3 }}
+            className="text-base text-neutral-500 dark:text-neutral-400 leading-relaxed mb-10 max-w-xl"
           >
             {dictionary.description}
           </motion.p>
 
-          {/* CTA Button */}
+          {/* Email CTA */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            initial={{ opacity: 0, y: 8 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.4, delay: 0.4 }}
           >
-            <MagneticElement strength={0.2}>
-              <Button
-                href={`/${locale}/contact`}
-                variant="secondary"
-                size="lg"
-                rightIcon={<ArrowRight className="h-5 w-5" />}
-                className="relative overflow-hidden group bg-white text-primary-700 hover:bg-white/90"
-              >
-                <span className="relative z-10">{dictionary.title}</span>
-
-                {/* Shimmer effect */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent"
-                  initial={{ x: '-100%' }}
-                  animate={{ x: '200%' }}
-                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                />
-              </Button>
-            </MagneticElement>
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="group inline-flex items-center gap-2 text-base font-medium text-neutral-900 dark:text-neutral-50 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200 border-b border-neutral-300 dark:border-neutral-700 hover:border-primary-400 dark:hover:border-primary-500 pb-0.5"
+            >
+              {personalInfo.email}
+              <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
           </motion.div>
-
-          {/* Decorative floating elements */}
-          <div className="absolute top-10 left-10 w-2 h-2 bg-accent-400 rounded-full animate-pulse" />
-          <div className="absolute top-20 right-20 w-3 h-3 bg-primary-300 rounded-full animate-pulse animation-delay-300" />
-          <div className="absolute bottom-20 left-20 w-2 h-2 bg-white/50 rounded-full animate-pulse animation-delay-500" />
-          <div className="absolute bottom-10 right-10 w-4 h-4 bg-accent-300/50 rounded-full animate-pulse animation-delay-700" />
         </div>
       </div>
     </section>

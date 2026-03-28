@@ -1,4 +1,4 @@
-import { DM_Sans, Space_Grotesk, Fira_Code, Playfair_Display } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { i18nConfig, isValidLocale } from '@/lib/i18n/config';
 import { getDictionary } from '@/lib/i18n/dictionaries';
@@ -9,31 +9,18 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { generatePersonSchema, generateWebSiteSchema } from '@/lib/seo/schema';
 import type { Locale } from '@/types';
 
-const displayFont = Space_Grotesk({
+const interFont = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-display',
-  weight: ['400', '500', '600', '700'],
+  variable: '--font-inter',
+  weight: ['300', '400', '500', '600', '700'],
 });
 
-const serifFont = Playfair_Display({
+const monoFont = JetBrains_Mono({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-serif',
-  weight: ['400', '500', '600', '700'],
-});
-
-const bodyFont = DM_Sans({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-body',
-  weight: ['400', '500', '700'],
-});
-
-const firaCode = Fira_Code({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-fira-code',
+  variable: '--font-mono',
+  weight: ['400', '500'],
 });
 
 interface LocaleLayoutProps {
@@ -64,7 +51,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${displayFont.variable} ${serifFont.variable} ${bodyFont.variable} ${firaCode.variable}`}
+      className={`${interFont.variable} ${monoFont.variable}`}
       suppressHydrationWarning
     >
       <head>

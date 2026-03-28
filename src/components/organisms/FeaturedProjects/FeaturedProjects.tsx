@@ -1,15 +1,12 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import { ArrowRight, ExternalLink, Github, Star, GitFork } from 'lucide-react';
-import Link from 'next/link';
-import { Button } from '@/components/atoms/Button';
-import { GlowCard } from '@/components/effects/GlowCard';
-import { FadeInSection } from '@/components/effects/ParallaxSection';
-import { TextReveal } from '@/components/effects/TextReveal';
-import { cn } from '@/lib/utils/cn';
-import type { Locale } from '@/types';
+import { featuredProjects } from "@/data/featured-projects";
+import { cn } from "@/lib/utils/cn";
+import type { Locale } from "@/types";
+import { motion, useInView } from "framer-motion";
+import { ArrowUpRight, Github } from "lucide-react";
+import Link from "next/link";
+import { useRef } from "react";
 
 interface Repository {
   id: number;
@@ -36,220 +33,173 @@ interface FeaturedProjectsProps {
   };
 }
 
-const languageColors: Record<string, string> = {
-  TypeScript: '#3178c6',
-  JavaScript: '#f7df1e',
-  Python: '#3572A5',
-  Rust: '#dea584',
-  Go: '#00ADD8',
-  Java: '#b07219',
-  CSS: '#563d7c',
-  HTML: '#e34c26',
-  PHP: '#4F5D95',
-  Ruby: '#701516',
-  Swift: '#ffac45',
-  Kotlin: '#A97BFF',
-};
-
-function ProjectCard({ repo, locale, dictionary }: { repo: Repository; locale: Locale; dictionary: { viewProject: string; viewCode: string } }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(cardRef, { once: true, margin: '-50px' });
+function ProjectRow({
+  repo,
+  index,
+  dictionary,
+}: {
+  repo: Repository;
+  index: number;
+  dictionary: { viewProject: string; viewCode: string };
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-40px" });
 
   return (
     <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+      ref={ref}
+      initial={{ opacity: 0, y: 16 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{
+        duration: 0.45,
+        delay: index * 0.08,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      }}
+      className="group grid grid-cols-1 lg:grid-cols-[64px_1fr_auto] gap-4 lg:gap-8 items-start py-8 border-t border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50/40 dark:hover:bg-neutral-900/20 transition-colors duration-200 px-2 -mx-2 rounded-lg"
     >
-      <GlowCard className="h-full group">
-        <div className="p-6 flex flex-col h-full">
-          {/* Header */}
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <div
-                className="w-3 h-3 rounded-full"
-                style={{ backgroundColor: languageColors[repo.language || ''] || '#6e7681' }}
-              />
-              <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
-                {repo.language || 'Unknown'}
-              </span>
-            </div>
-            <div className="flex items-center gap-3 text-neutral-500 dark:text-neutral-400">
-              <span className="flex items-center gap-1 text-sm">
-                <Star className="w-4 h-4" />
-                {repo.stargazers_count}
-              </span>
-              <span className="flex items-center gap-1 text-sm">
-                <GitFork className="w-4 h-4" />
-                {repo.forks_count}
-              </span>
-            </div>
-          </div>
+      {/* Index */}
+      <div className="font-mono text-xs text-neutral-300 dark:text-neutral-600 tracking-widest pt-1 select-none">
+        {String(index + 1).padStart(2, "0")}
+      </div>
 
-          {/* Title */}
-          <h3 className="text-xl font-bold text-neutral-800 dark:text-neutral-100 mb-2 group-hover:text-primary-500 transition-colors">
-            {repo.name}
-          </h3>
-
-          {/* Description */}
-          <p className="text-neutral-600 dark:text-neutral-400 text-sm mb-4 flex-grow line-clamp-3">
-            {repo.description || 'No description available'}
-          </p>
-
-          {/* Topics */}
-          {repo.topics && repo.topics.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-4">
-              {repo.topics.slice(0, 3).map((topic) => (
-                <span
-                  key={topic}
-                  className="px-2 py-1 text-xs font-medium rounded-full bg-primary-100/50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300"
-                >
-                  {topic}
-                </span>
-              ))}
-            </div>
-          )}
-
-          {/* Actions */}
-          <div className="flex items-center gap-3 mt-auto pt-4 border-t border-neutral-200/50 dark:border-neutral-700/50">
-            {repo.homepage && (
-              <Link
-                href={repo.homepage}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  'flex items-center gap-2 text-sm font-medium',
-                  'text-primary-600 dark:text-primary-400',
-                  'hover:text-primary-700 dark:hover:text-primary-300',
-                  'transition-colors'
-                )}
-              >
-                <ExternalLink className="w-4 h-4" />
-                {dictionary.viewProject}
-              </Link>
-            )}
-            <Link
-              href={repo.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                'flex items-center gap-2 text-sm font-medium',
-                'text-neutral-600 dark:text-neutral-400',
-                'hover:text-neutral-800 dark:hover:text-neutral-200',
-                'transition-colors',
-                !repo.homepage && 'ml-0',
-                repo.homepage && 'ml-auto'
-              )}
-            >
-              <Github className="w-4 h-4" />
-              {dictionary.viewCode}
-            </Link>
-          </div>
+      {/* Content */}
+      <div className="min-w-0">
+        <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-50 mb-2 group-hover:text-primary-500 dark:group-hover:text-primary-400 transition-colors duration-200">
+          {repo.name}
+        </h3>
+        <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4 leading-relaxed max-w-2xl">
+          {repo.description || "No description available"}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {repo.language && <span className="tech-tag">{repo.language}</span>}
+          {repo.topics.slice(0, 4).map((topic) => (
+            <span key={topic} className="tech-tag">
+              {topic}
+            </span>
+          ))}
         </div>
+      </div>
 
-        {/* Hover gradient effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-accent-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none rounded-2xl" />
-      </GlowCard>
+      {/* Links */}
+      <div className="flex items-center gap-4 lg:flex-col lg:items-end lg:gap-3 pt-0.5 shrink-0">
+        {repo.homepage && (
+          <Link
+            href={repo.homepage}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 font-mono text-xs font-medium uppercase tracking-wide text-neutral-600 dark:text-neutral-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200"
+          >
+            {dictionary.viewProject}
+            <ArrowUpRight className="w-3 h-3" />
+          </Link>
+        )}
+        {repo.html_url && (
+          <Link
+            href={repo.html_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 font-mono text-xs font-medium uppercase tracking-wide text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors duration-200"
+          >
+            <Github className="w-3.5 h-3.5" />
+            Code
+          </Link>
+        )}
+      </div>
     </motion.div>
   );
 }
 
-export function FeaturedProjects({ repos, locale, dictionary }: FeaturedProjectsProps) {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
+export function FeaturedProjects({
+  repos,
+  locale,
+  dictionary,
+}: FeaturedProjectsProps) {
+  const headerRef = useRef<HTMLDivElement>(null);
+  const isHeaderInView = useInView(headerRef, { once: true });
 
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
+  const featuredAsRepos: Repository[] = featuredProjects.map((p, i) => ({
+    id: -(i + 1),
+    name: p.name,
+    description: p.description[locale],
+    html_url: "",
+    homepage: p.homepage,
+    language: p.language,
+    stargazers_count: 0,
+    forks_count: 0,
+    topics: p.topics,
+  }));
+
+  const allRepos = [...featuredAsRepos, ...repos];
 
   return (
-    <section
-      ref={sectionRef}
-      className="section-padding relative overflow-hidden bg-neutral-50 dark:bg-neutral-900/50"
-    >
-      {/* Background decorations */}
-      <motion.div
-        className="absolute inset-0 -z-10"
-        style={{ y: backgroundY }}
-      >
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent-500/5 rounded-full blur-3xl" />
-      </motion.div>
-
+    <section className="section-padding border-t border-neutral-200 dark:border-neutral-800">
       <div className="container-custom">
         {/* Section header */}
-        <FadeInSection className="text-center mb-16">
+        <div ref={headerRef} className="flex items-end justify-between mb-4">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="inline-block mb-4"
+            initial={{ opacity: 0, y: 12 }}
+            animate={isHeaderInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.4 }}
           >
-            <span className="px-4 py-2 rounded-full text-sm font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300">
-              Portfolio
-            </span>
+            <p className="label-mono mb-2">Portfolio</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-neutral-50 tracking-tight">
+              {dictionary.title}
+            </h2>
           </motion.div>
-          <TextReveal
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-800 dark:text-neutral-100 mb-4"
-            type="words"
-          >
-            {dictionary.title}
-          </TextReveal>
-          <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto text-lg">
-            {dictionary.description}
-          </p>
-        </FadeInSection>
 
-        {/* Projects grid */}
-        {repos.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {repos.map((repo, index) => (
-              <motion.div
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isHeaderInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.4, delay: 0.2 }}
+          >
+            <Link
+              href={`/${locale}/projects`}
+              className={cn(
+                "hidden sm:inline-flex items-center gap-1.5",
+                "font-mono text-xs font-medium uppercase tracking-wide",
+                "text-neutral-500 dark:text-neutral-400",
+                "hover:text-primary-500 dark:hover:text-primary-400",
+                "transition-colors duration-200"
+              )}
+            >
+              {dictionary.viewAll}
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Projects list */}
+        {allRepos.length > 0 ? (
+          <div>
+            {allRepos.map((repo, index) => (
+              <ProjectRow
                 key={repo.id}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{
-                  duration: 0.6,
-                  delay: index * 0.1,
-                  ease: [0.25, 0.46, 0.45, 0.94],
+                repo={repo}
+                index={index}
+                dictionary={{
+                  viewProject: dictionary.viewProject,
+                  viewCode: dictionary.viewCode,
                 }}
-              >
-                <ProjectCard
-                  repo={repo}
-                  locale={locale}
-                  dictionary={{
-                    viewProject: dictionary.viewProject,
-                    viewCode: dictionary.viewCode,
-                  }}
-                />
-              </motion.div>
+              />
             ))}
+            <div className="border-t border-neutral-200 dark:border-neutral-800" />
           </div>
         ) : (
-          <p className="text-center text-neutral-500 dark:text-neutral-400 mb-12">
+          <p className="py-16 text-center font-mono text-sm text-neutral-400 dark:text-neutral-500">
             {dictionary.noProjects}
           </p>
         )}
 
-        {/* View all button */}
-        <FadeInSection className="text-center">
-          <Button
+        {/* Mobile: view all */}
+        <div className="mt-8 sm:hidden">
+          <Link
             href={`/${locale}/projects`}
-            variant="outline"
-            size="lg"
-            rightIcon={<ArrowRight className="h-5 w-5" />}
-            className="group"
+            className="inline-flex items-center gap-1.5 font-mono text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200"
           >
-            <span className="relative">
-              {dictionary.viewAll}
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-current group-hover:w-full transition-all duration-300" />
-            </span>
-          </Button>
-        </FadeInSection>
+            {dictionary.viewAll}
+            <ArrowUpRight className="w-3 h-3" />
+          </Link>
+        </div>
       </div>
     </section>
   );
