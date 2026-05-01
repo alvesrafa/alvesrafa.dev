@@ -17,6 +17,22 @@
       "description": "Entre em contato para discutir seu projeto ou oportunidades de colaboração. Disponível para consultoria e desenvolvimento full-stack."
     }
   },
+  "statusBar": {
+    "available": "FREELA · 2T '26",
+    "role": "tech_lead @ luby_software",
+    "location": "ilhabela · sp — br",
+    "timezone": "GMT-3"
+  },
+  "sections": {
+    "workAnchor": "projetos selecionados · 04",
+    "workTitle": "Coisas que entreguei.",
+    "stackAnchor": "stack · o que uso",
+    "stackTitle": "Ferramentas, em ordem de domínio.",
+    "pathAnchor": "trajetória · carreira",
+    "pathTitle": "Como cheguei aqui.",
+    "contactAnchor": "contato · vamos conversar",
+    "contactHeading": "Tem um problema difícil?"
+  },
   "nav": {
     "home": "Início",
     "about": "Sobre",
@@ -30,6 +46,12 @@
     "name": "Rafael Alves",
     "role": "Tech Lead & Engenheiro de Software",
     "tagline": "Criando experiências web de alto desempenho do banco de dados ao deploy. Especializado em desenvolvimento full-stack com TypeScript, React, Node.js e arquitetura cloud.",
+    "availability": "Disponível para freelas e projetos curtos",
+    "ctaPrimary": "Projetos selecionados",
+    "metaYears": "Anos de entrega",
+    "metaDeploys": "Deploys em produção",
+    "metaTeam": "Time",
+    "metaCertified": "Certificado AWS",
     "cta": {
       "projects": "Ver Projetos",
       "contact": "Entre em Contato"
@@ -79,12 +101,14 @@
     "title": "Entre em Contato",
     "subtitle": "Vamos trabalhar juntos",
     "description": "Tem um projeto em mente ou quer discutir oportunidades de colaboração? Adoraria ouvir de você.",
+    "replyTime": "Normalmente respondo em até 24h.",
+    "contractAvailability": "Disponível no 2T 2026 para freelas e contratos.",
     "info": {
       "title": "Informações de Contato",
       "email": "Email",
       "location": "Localização",
       "availability": "Disponibilidade",
-      "availabilityText": "Aberto a novas oportunidades"
+      "availabilityText": "Aberto a freelas e contratos"
     },
     "send":"Me envie um email.",
     "social": {
@@ -92,10 +116,13 @@
     }
   },
   "footer": {
+    "build": "build",
+    "tagline": "Rafael Alves · Ilhabela, BR · feito à mão",
+    "scrollTop": "↑ voltar ao topo",
     "copyright": "Todos os direitos reservados.",
     "builtWith": "Feito com",
     "and": "e",
-    "deployedOn": "Deploy na"
+    "deployedOn": "Implantado no"
   },
   "common": {
     "loading": "Carregando...",

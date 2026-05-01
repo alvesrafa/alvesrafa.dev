@@ -13,6 +13,10 @@
     --muted: 244 244 245;
     --muted-foreground: 113 113 122;
     --border: 228 228 231;
+    --status-bar-bg: rgba(9,9,11,0.85);
+    --availability-glow: rgba(163,230,53,0.6);
+    --rail-width: 80px;
+    --ease-signature: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   .dark {
@@ -132,11 +136,56 @@
     @apply bg-white dark:bg-neutral-900;
     @apply shadow-sm;
   }
+
+  /* Home page section chrome */
+  .home-section {
+    @apply py-[120px] border-t border-neutral-900;
+  }
+
+  /* Terminal caret blink */
+  @keyframes rail-caret-blink {
+    50% { opacity: 0; }
+  }
+
+  .term-caret {
+    display: inline-block;
+    width: 8px;
+    height: 14px;
+    background: var(--primary-400, #a3e635);
+    vertical-align: middle;
+    animation: rail-caret-blink 1s steps(1) infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .term-caret { animation: none; }
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .work-row {
+    grid-template-columns: auto 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .work-row {
+      grid-template-columns: 56px 1.1fr 1fr 220px 120px;
+      gap: 24px;
+    }
+  }
+
+  .stack-grid {
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .stack-grid {
+      grid-template-columns: 200px 1fr;
+      gap: 0 48px;
+    }
   }
 
   .animation-delay-75   { animation-delay:  75ms; }

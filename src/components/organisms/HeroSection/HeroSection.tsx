@@ -1,182 +1,451 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Mail } from 'lucide-react';
 import Link from 'next/link';
 import type { Locale } from '@/types';
 
 interface HeroSectionProps {
   locale: Locale;
   dictionary: {
-    greeting: string;
-    name: string;
+    availability: string;
+    ctaPrimary: string;
+    metaYears: string;
+    metaDeploys: string;
+    metaTeam: string;
+    metaCertified: string;
+  };
+  statusBarDictionary: {
+    available: string;
     role: string;
-    tagline: string;
-    cta: {
-      projects: string;
-      contact: string;
-    };
-    scroll: string;
+    location: string;
+    timezone: string;
   };
 }
 
-export function HeroSection({ locale, dictionary }: HeroSectionProps) {
-  const metaItems = [
-    {
-      label: locale === 'pt-BR' ? 'Base' : 'Based',
-      value: 'Ilhabela, SP — Brazil',
-    },
-    {
-      label: locale === 'pt-BR' ? 'Empresa' : 'Company',
-      value: 'Luby Software',
-    },
-    {
-      label: locale === 'pt-BR' ? 'Cargo' : 'Role',
-      value: 'Tech Lead',
-    },
-    {
-      label: locale === 'pt-BR' ? 'Experiência' : 'Experience',
-      value: locale === 'pt-BR' ? '5+ anos' : '5+ years',
-    },
-  ];
+const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
+export function HeroSection({ dictionary, statusBarDictionary }: HeroSectionProps) {
   return (
-    <section className="relative min-h-[100dvh] flex items-center overflow-hidden">
-      {/* Subtle grid */}
+    <>
+      {/* ── Status Bar ── */}
       <div
-        className="absolute inset-0 -z-10 text-neutral-900 dark:text-neutral-100 bg-grid-pattern opacity-[0.02] dark:opacity-[0.03]"
-        aria-hidden="true"
-      />
-
-      <div className="container-custom py-32">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-16 lg:gap-20 items-end">
-
-          {/* Left: Main typography */}
-          <div>
-            {/* Role label */}
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: 'easeOut' }}
-              className="label-mono mb-8"
-            >
-              Tech Lead · Full Stack · Architect
-            </motion.p>
-
-            {/* Name — the centerpiece */}
-            <motion.h1
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.07, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="text-[clamp(56px,9vw,116px)] font-bold leading-[0.88] tracking-[-0.03em] text-neutral-900 dark:text-neutral-50 mb-10"
-            >
-              Rafael
-              <br />
-              <span className="text-primary-400">Alves.</span>
-            </motion.h1>
-
-            {/* Animated divider */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              style={{ originX: 0 }}
-              transition={{ duration: 0.7, delay: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="h-px w-full bg-neutral-200 dark:bg-neutral-800 mb-10"
-            />
-
-            {/* Tagline */}
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.38 }}
-              className="text-lg text-neutral-500 dark:text-neutral-400 max-w-lg leading-relaxed mb-12"
-            >
-              {dictionary.tagline}
-            </motion.p>
-
-            {/* CTAs — text-link style, no buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.52 }}
-              className="flex items-center gap-8 flex-wrap"
-            >
-              <Link
-                href={`/${locale}/projects`}
-                className="group inline-flex items-center gap-2 text-sm font-medium text-neutral-900 dark:text-neutral-50 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200"
-              >
-                {dictionary.cta.projects}
-                <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-              <Link
-                href={`/${locale}/contact`}
-                className="text-sm font-medium text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors duration-200 border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-50 pb-px"
-              >
-                {dictionary.cta.contact}
-              </Link>
-            </motion.div>
-          </div>
-
-          {/* Right: Meta sidebar */}
-          <motion.aside
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.45 }}
-            className="lg:pb-1"
+        className="sticky top-14 md:top-0 z-30 px-6 md:px-12 py-[10px] flex items-center justify-between"
+        style={{
+          background: 'rgba(9,9,11,0.85)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          borderBottom: '1px solid #18181b',
+        }}
+      >
+        {/* Left */}
+        <div className="flex items-center gap-4">
+          {/* Availability pill */}
+          <span
+            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1"
+            style={{
+              border: '1px solid rgba(163,230,53,0.35)',
+              background: 'rgba(163,230,53,0.08)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              letterSpacing: '0.08em',
+              color: '#a3e635',
+            }}
           >
-            <dl className="space-y-6">
-              {metaItems.map((item, i) => (
-                <motion.div
-                  key={item.label}
-                  initial={{ opacity: 0, x: 10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: 0.52 + i * 0.07 }}
-                >
-                  <dt className="label-mono mb-1.5">{item.label}</dt>
-                  <dd className="text-sm text-neutral-700 dark:text-neutral-300 font-medium">
-                    {item.value}
-                  </dd>
-                </motion.div>
-              ))}
-            </dl>
+            <span
+              aria-hidden="true"
+              style={{
+                display: 'inline-block',
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                background: '#a3e635',
+                flexShrink: 0,
+              }}
+            />
+            {statusBarDictionary.available}
+          </span>
 
-            {/* Availability indicator */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.92 }}
-              className="mt-8 pt-6 border-t border-neutral-200 dark:border-neutral-800"
-            >
-              <div className="flex items-center gap-2.5">
-                <span className="relative flex h-2 w-2" aria-hidden="true">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-60" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-400" />
-                </span>
-                <span className="font-mono text-[11px] text-primary-600 dark:text-primary-400 tracking-wide">
-                  {locale === 'pt-BR'
-                    ? 'Aberto a novas oportunidades'
-                    : 'Open to new opportunities'}
-                </span>
-              </div>
-            </motion.div>
-          </motion.aside>
+          {/* Role — hidden below 900px */}
+          <span
+            className="[@media(min-width:900px)]:inline-block hidden"
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              letterSpacing: '0.08em',
+              color: '#71717a',
+            }}
+          >
+            {statusBarDictionary.role}
+          </span>
+        </div>
+
+        {/* Right — hidden on mobile */}
+        <div
+          className="hidden sm:flex items-center gap-3"
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '11px',
+            letterSpacing: '0.08em',
+            color: '#71717a',
+          }}
+        >
+          <span>{statusBarDictionary.location}</span>
+          <span style={{ color: '#3f3f46' }}>·</span>
+          <span>{statusBarDictionary.timezone}</span>
         </div>
       </div>
 
-      {/* Scroll line */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
-        aria-hidden="true"
-      >
+      {/* ── Hero Content ── */}
+      <section className="px-6 md:px-12 pt-20 pb-24">
+        {/* Two-column grid — single col on mobile, 1.3fr 1fr on md+ */}
+        <div className="grid grid-cols-1 md:grid-cols-[1.3fr_1fr] gap-16 items-start">
+          {/* Left column */}
+          <div>
+            {/* Availability badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease }}
+            >
+              <span
+                className="inline-flex items-center gap-2 rounded-full px-3 py-1"
+                style={{
+                  border: '1px solid rgba(163,230,53,0.3)',
+                  background: 'rgba(163,230,53,0.06)',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '11px',
+                  letterSpacing: '0.08em',
+                  color: '#a3e635',
+                }}
+              >
+                <span
+                  aria-hidden="true"
+                  style={{
+                    display: 'inline-block',
+                    width: 6,
+                    height: 6,
+                    borderRadius: '50%',
+                    background: '#a3e635',
+                  }}
+                />
+                {dictionary.availability}
+              </span>
+            </motion.div>
+
+            {/* H1 */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.07, ease }}
+              style={{
+                fontSize: 'clamp(72px, 11vw, 168px)',
+                fontWeight: 700,
+                lineHeight: 0.82,
+                letterSpacing: '-0.045em',
+                color: '#fafafa',
+                marginTop: '0.6em',
+              }}
+            >
+              <span className="block">Rafael</span>
+              <span className="block relative" style={{ paddingLeft: '0.22em' }}>
+                {/* Horizontal lime accent dash */}
+                <span
+                  aria-hidden="true"
+                  style={{
+                    position: 'absolute',
+                    left: 0,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: '0.18em',
+                    height: '0.06em',
+                    background: '#a3e635',
+                    borderRadius: 2,
+                  }}
+                />
+                <em className="not-italic" style={{ color: '#a3e635' }}>
+                  Alves
+                </em>
+              </span>
+            </motion.h1>
+
+            {/* Role chips */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3, ease }}
+              className="flex flex-wrap gap-1.5 mt-8"
+            >
+              {[
+                { label: 'tech lead', accent: true },
+                { label: 'full-stack engineer', accent: false },
+                { label: 'software architect', accent: false },
+                { label: 'typescript · aws', accent: false },
+              ].map((chip) => (
+                <span
+                  key={chip.label}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    borderRadius: 9999,
+                    paddingInline: '0.75rem',
+                    paddingBlock: '0.3rem',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '11px',
+                    letterSpacing: '0.06em',
+                    border: chip.accent
+                      ? '1px solid rgba(163,230,53,0.4)'
+                      : '1px solid #27272a',
+                    background: chip.accent
+                      ? 'rgba(163,230,53,0.1)'
+                      : 'rgba(39,39,42,0.5)',
+                    color: chip.accent ? '#a3e635' : '#71717a',
+                  }}
+                >
+                  {chip.label}
+                </span>
+              ))}
+            </motion.div>
+
+            {/* CTA row */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.45, ease }}
+              className="flex flex-wrap gap-3 mt-10"
+            >
+              {/* Primary CTA */}
+              <Link
+                href="#work"
+                className="group inline-flex items-center gap-2"
+                style={{
+                  borderRadius: 9999,
+                  paddingInline: '1.25rem',
+                  paddingBlock: '0.65rem',
+                  background: '#a3e635',
+                  color: '#09090b',
+                  fontWeight: 600,
+                  fontSize: '13px',
+                  letterSpacing: '0.02em',
+                  transition: 'background 0.2s',
+                  textDecoration: 'none',
+                }}
+              >
+                {dictionary.ctaPrimary}
+                <ArrowUpRight
+                  size={15}
+                  className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </Link>
+
+              {/* Ghost CTA */}
+              <a
+                href="mailto:alvesrafa.dev@gmail.com"
+                className="group inline-flex items-center gap-2"
+                style={{
+                  borderRadius: 9999,
+                  paddingInline: '1.25rem',
+                  paddingBlock: '0.65rem',
+                  border: '1px solid #27272a',
+                  background: 'transparent',
+                  color: '#a1a1aa',
+                  fontSize: '13px',
+                  letterSpacing: '0.02em',
+                  transition: 'border-color 0.2s, color 0.2s',
+                  textDecoration: 'none',
+                }}
+              >
+                <Mail size={14} />
+                alvesrafa.dev@gmail.com
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Right column — terminal card, hidden on mobile */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2, ease }}
+            className="hidden md:block"
+          >
+            <div
+              style={{
+                background: '#0b0b0d',
+                border: '1px solid #27272a',
+                borderRadius: 14,
+                overflow: 'hidden',
+              }}
+            >
+              {/* Terminal header strip */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '10px 14px',
+                  borderBottom: '1px solid #1c1c1f',
+                  background: '#111113',
+                }}
+              >
+                <span style={{ width: 12, height: 12, borderRadius: '50%', background: '#ff5f57', display: 'inline-block' }} />
+                <span style={{ width: 12, height: 12, borderRadius: '50%', background: '#febc2e', display: 'inline-block' }} />
+                <span style={{ width: 12, height: 12, borderRadius: '50%', background: '#28c840', display: 'inline-block' }} />
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '11px',
+                    color: '#52525b',
+                    marginLeft: 8,
+                    letterSpacing: '0.04em',
+                  }}
+                >
+                  ~/rafael — zsh
+                </span>
+              </div>
+
+              {/* Terminal body */}
+              <div
+                style={{
+                  padding: '18px 20px 22px',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '13px',
+                  lineHeight: 1.8,
+                }}
+              >
+                {/* whoami */}
+                <p>
+                  <span style={{ color: '#a3e635' }}>$</span>{' '}
+                  <span style={{ color: '#fafafa' }}>whoami</span>
+                </p>
+                <p style={{ color: '#a1a1aa' }}>→ rafael_alves</p>
+                <p>&nbsp;</p>
+
+                {/* cat stack.yml */}
+                <p>
+                  <span style={{ color: '#a3e635' }}>$</span>{' '}
+                  <span style={{ color: '#fafafa' }}>cat stack.yml</span>
+                </p>
+                <p>
+                  <span style={{ color: '#bef264' }}>frontend</span>
+                  <span style={{ color: '#71717a' }}>:</span>{' '}
+                  <span style={{ color: '#a1a1aa' }}>[react, next, react_native]</span>
+                </p>
+                <p>
+                  <span style={{ color: '#bef264' }}>backend</span>
+                  <span style={{ color: '#71717a' }}>:</span>
+                  {'  '}
+                  <span style={{ color: '#a1a1aa' }}>[node, nest, laravel, go]</span>
+                </p>
+                <p>
+                  <span style={{ color: '#bef264' }}>cloud</span>
+                  <span style={{ color: '#71717a' }}>:</span>
+                  {'    '}
+                  <span style={{ color: '#a1a1aa' }}>[aws, azure, docker, k8s]</span>
+                </p>
+                <p>
+                  <span style={{ color: '#bef264' }}>db</span>
+                  <span style={{ color: '#71717a' }}>:</span>
+                  {'       '}
+                  <span style={{ color: '#a1a1aa' }}>[postgres, mongo, redis]</span>
+                </p>
+                <p>&nbsp;</p>
+
+                {/* now */}
+                <p>
+                  <span style={{ color: '#a3e635' }}>$</span>{' '}
+                  <span style={{ color: '#fafafa' }}>now</span>
+                </p>
+                <p style={{ color: '#a1a1aa' }}>building convide.site + mentoring</p>
+                <p>&nbsp;</p>
+
+                {/* comment */}
+                <p style={{ color: '#52525b' }}># currently shipping from a small island</p>
+
+                {/* prompt + caret */}
+                <p>
+                  <span style={{ color: '#a3e635' }}>$</span>{' '}
+                  <span className="term-caret" aria-hidden="true" />
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* ── Meta Strip ── */}
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-px h-12 bg-gradient-to-b from-neutral-400 to-transparent dark:from-neutral-600"
-        />
-      </motion.div>
-    </section>
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6, ease }}
+          className="mt-20 grid grid-cols-2 md:grid-cols-4"
+          style={{
+            borderTop: '1px solid #18181b',
+            borderBottom: '1px solid #18181b',
+          }}
+        >
+          {[
+            {
+              label: dictionary.metaYears,
+              value: '05',
+              unit: '+',
+              big: true,
+            },
+            {
+              label: dictionary.metaDeploys,
+              value: '∞',
+              unit: '',
+              big: true,
+            },
+            {
+              label: dictionary.metaTeam,
+              value: 'Luby Software',
+              unit: '',
+              big: false,
+            },
+            {
+              label: dictionary.metaCertified,
+              value: 'Cloud Practitioner',
+              unit: '',
+              big: false,
+            },
+          ].map((cell, i, arr) => (
+            <div
+              key={cell.label}
+              className="px-6 py-5"
+              style={{
+                borderRight: i < arr.length - 1 ? '1px solid #18181b' : undefined,
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '10px',
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  color: '#71717a',
+                  marginBottom: 6,
+                }}
+              >
+                {cell.label}
+              </p>
+              <p
+                style={{
+                  color: '#fafafa',
+                  fontWeight: cell.big ? 700 : 400,
+                  fontSize: cell.big ? 28 : 14,
+                  lineHeight: 1.1,
+                }}
+              >
+                {cell.value}
+                {cell.unit && (
+                  <span style={{ fontSize: 16, fontWeight: 400, color: '#71717a', marginLeft: 2 }}>
+                    {cell.unit}
+                  </span>
+                )}
+              </p>
+            </div>
+          ))}
+        </motion.div>
+      </section>
+    </>
   );
 }

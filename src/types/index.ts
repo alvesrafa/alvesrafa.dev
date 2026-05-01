@@ -41,11 +41,13 @@ export interface FeaturedProject {
   id: string;
   name: string;
   description: LocalizedString;
-  homepage: string;
+  homepage?: string;
   language: string;
   topics: string[];
   featured: true;
   image?: string;
+  year: string;
+  previewImage?: string;
 }
 
 export type ProjectItem = GitHubRepo | FeaturedProject;

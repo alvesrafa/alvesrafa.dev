@@ -3,9 +3,11 @@ import { notFound } from 'next/navigation';
 import { i18nConfig, isValidLocale } from '@/lib/i18n/config';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import { Providers } from '@/app/providers';
-import { Header } from '@/components/organisms/Header';
+import { RailNav } from '@/components/organisms/RailNav';
+import { MobileHeader } from '@/components/organisms/MobileHeader';
 import { Footer } from '@/components/organisms/Footer';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { SkipLink } from '@/components/atoms/SkipLink';
 import { generatePersonSchema, generateWebSiteSchema } from '@/lib/seo/schema';
 import type { Locale } from '@/types';
 
@@ -32,10 +34,7 @@ export async function generateStaticParams() {
   return i18nConfig.locales.map((locale) => ({ locale }));
 }
 
-export default async function LocaleLayout({
-  children,
-  params,
-}: LocaleLayoutProps) {
+export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
   const { locale } = await params;
 
   if (!isValidLocale(locale)) {
@@ -43,8 +42,6 @@ export default async function LocaleLayout({
   }
 
   const dictionary = await getDictionary(locale as Locale);
-
-  // Generate JSON-LD schemas
   const personSchema = generatePersonSchema(locale as Locale);
   const websiteSchema = generateWebSiteSchema();
 
@@ -57,25 +54,26 @@ export default async function LocaleLayout({
       <head>
         <JsonLd data={[personSchema, websiteSchema]} />
       </head>
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased bg-neutral-950 text-neutral-50">
         <Providers locale={locale as Locale} dictionary={dictionary}>
-          <div className="flex min-h-screen flex-col">
-            <Header
-              locale={locale as Locale}
-              dictionary={{
-                skipToMain: dictionary.accessibility.skipToMain,
-                openMenu: dictionary.accessibility.openMenu,
-                closeMenu: dictionary.accessibility.closeMenu,
-                toggleTheme: dictionary.accessibility.toggleTheme,
-                switchLanguage: dictionary.accessibility.switchLanguage,
-              }}
-            />
-            <main id="main-content" className="flex-grow pt-16 md:pt-20">
+          <SkipLink>{dictionary.accessibility.skipToMain}</SkipLink>
+
+          {/* Desktop: fixed left rail */}
+          <RailNav locale={locale as Locale} />
+
+          {/* Mobile: top pinned header */}
+          <MobileHeader locale={locale as Locale} />
+
+          {/* Content area: offset from rail on desktop, full width on mobile */}
+          <div className="md:ml-[80px] min-h-screen flex flex-col">
+            <main id="main-content" className="flex-grow mt-14 md:mt-0">
               {children}
             </main>
             <Footer
-              locale={locale as Locale}
               dictionary={{
+                build: dictionary.footer.build,
+                tagline: dictionary.footer.tagline,
+                scrollTop: dictionary.footer.scrollTop,
                 copyright: dictionary.footer.copyright,
                 builtWith: dictionary.footer.builtWith,
                 and: dictionary.footer.and,

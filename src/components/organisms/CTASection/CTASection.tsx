@@ -1,88 +1,135 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
-import { personalInfo } from '@/data/navigation';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import type { Locale } from '@/types';
 
 interface CTASectionProps {
   locale: Locale;
   dictionary: {
-    title: string;
-    subtitle: string;
-    description: string;
-    button: string;
+    contactAnchor: string;
+    contactHeading: string;
+    replyTime: string;
+    contractAvailability: string;
   };
 }
 
 export function CTASection({ locale, dictionary }: CTASectionProps) {
-  const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const [emailHovered, setEmailHovered] = useState(false);
+  const [githubHovered, setGithubHovered] = useState(false);
+  const [linkedinHovered, setLinkedinHovered] = useState(false);
 
   return (
-    <section
-      ref={ref}
-      className="section-padding border-t border-neutral-200 dark:border-neutral-800"
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
-      <div className="container-custom">
-        <div className="max-w-3xl">
-
-          {/* Label */}
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.4 }}
-            className="label-mono mb-8"
-          >
-            {locale === 'pt-BR' ? 'Vamos trabalhar juntos' : "Let's work together"}
-          </motion.p>
-
-          {/* Headline */}
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.55, delay: 0.07, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-neutral-900 dark:text-neutral-50 tracking-tight leading-[1.06] mb-8"
-          >
-            {dictionary.subtitle}
-          </motion.h2>
-
-          {/* Divider */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={isInView ? { scaleX: 1 } : {}}
-            style={{ originX: 0 }}
-            transition={{ duration: 0.65, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="h-px bg-neutral-200 dark:bg-neutral-800 mb-8"
-          />
-
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.45, delay: 0.3 }}
-            className="text-base text-neutral-500 dark:text-neutral-400 leading-relaxed mb-10 max-w-xl"
-          >
-            {dictionary.description}
-          </motion.p>
-
-          {/* Email CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.4, delay: 0.4 }}
-          >
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="group inline-flex items-center gap-2 text-base font-medium text-neutral-900 dark:text-neutral-50 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200 border-b border-neutral-300 dark:border-neutral-700 hover:border-primary-400 dark:hover:border-primary-500 pb-0.5"
-            >
-              {personalInfo.email}
-              <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
-          </motion.div>
+      <section id="contact" className="home-section px-6 md:px-12">
+        {/* Anchor label */}
+        <div
+          className="inline-flex items-center gap-2 pb-8"
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '11px',
+            fontWeight: 500,
+            letterSpacing: '0.08em',
+            color: '#71717a',
+          }}
+        >
+          <span style={{ color: '#a3e635', fontWeight: 500 }}>//</span>
+          {dictionary.contactAnchor}
         </div>
-      </div>
-    </section>
+
+        {/* Main flex row */}
+        <div className="flex items-end justify-between gap-8 flex-wrap">
+          {/* Left: Heading */}
+          <h2
+            style={{
+              fontFamily: 'var(--font-inter)',
+              fontSize: 'clamp(48px, 7vw, 96px)',
+              fontWeight: 700,
+              letterSpacing: '-0.03em',
+              lineHeight: 0.95,
+              margin: 0,
+              color: '#fafafa',
+            }}
+          >
+            {dictionary.contactHeading}{' '}
+            <span style={{ color: '#a3e635' }}>→</span>
+          </h2>
+
+          {/* Right: Contact info */}
+          <div
+            style={{
+              minWidth: '260px',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '12px',
+              color: '#a1a1aa',
+              lineHeight: 1.7,
+            }}
+          >
+            <p style={{ margin: 0, marginBottom: '0.5em' }}>
+              {dictionary.replyTime}
+            </p>
+            <p style={{ margin: 0, marginBottom: '0.5em' }}>
+              {dictionary.contractAvailability}
+            </p>
+            <br />
+            <div className="flex flex-col gap-1">
+              {/* Email link */}
+              <a
+                href="mailto:alvesrafa.dev@gmail.com"
+                style={{
+                  color: emailHovered ? '#a3e635' : '#fafafa',
+                  borderBottom: `1px solid ${emailHovered ? '#a3e635' : '#3f3f46'}`,
+                  textDecoration: 'none',
+                  transition: 'color 0.2s ease, border-bottom-color 0.2s ease',
+                }}
+                onMouseEnter={() => setEmailHovered(true)}
+                onMouseLeave={() => setEmailHovered(false)}
+              >
+                alvesrafa.dev@gmail.com
+              </a>
+
+              {/* GitHub link */}
+              <a
+                href="https://github.com/alvesrafa"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: githubHovered ? '#a3e635' : '#fafafa',
+                  borderBottom: `1px solid ${githubHovered ? '#a3e635' : '#3f3f46'}`,
+                  textDecoration: 'none',
+                  transition: 'color 0.2s ease, border-bottom-color 0.2s ease',
+                }}
+                onMouseEnter={() => setGithubHovered(true)}
+                onMouseLeave={() => setGithubHovered(false)}
+              >
+                github.com/alvesrafa
+              </a>
+
+              {/* LinkedIn link */}
+              <a
+                href="https://linkedin.com/in/alvrafael"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: linkedinHovered ? '#a3e635' : '#fafafa',
+                  borderBottom: `1px solid ${linkedinHovered ? '#a3e635' : '#3f3f46'}`,
+                  textDecoration: 'none',
+                  transition: 'color 0.2s ease, border-bottom-color 0.2s ease',
+                }}
+                onMouseEnter={() => setLinkedinHovered(true)}
+                onMouseLeave={() => setLinkedinHovered(false)}
+              >
+                linkedin.com/in/alvrafael
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </motion.div>
   );
 }

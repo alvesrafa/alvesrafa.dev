@@ -1,87 +1,144 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
-import Link from 'next/link';
-import { skillCategories } from '@/data/skills';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import type { Locale } from '@/types';
 
 interface SkillsShowcaseProps {
   locale: Locale;
   dictionary: {
-    title: string;
+    stackAnchor: string;
+    stackTitle: string;
   };
 }
 
+const GROUPS = [
+  { id: '01', label: 'Frontend', skills: ['TypeScript', 'React', 'Next.js', 'React Native', 'Expo', 'Tailwind', 'Zustand'] },
+  { id: '02', label: 'Backend', skills: ['Node.js', 'NestJS', 'Express', 'Go', 'PHP · Laravel', 'REST · GraphQL', 'Vitest · Jest', 'PHPUnit'] },
+  { id: '03', label: 'Data', skills: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Prisma', 'TypeORM', 'Kafka · RabbitMQ'] },
+  { id: '04', label: 'Cloud', skills: ['AWS', 'Azure', 'Docker', 'Kubernetes', 'Vercel', 'GitHub Actions', 'CI/CD', 'Nginx'] },
+  { id: '05', label: 'Architecture', skills: ['Clean Architecture', 'DDD', 'SOLID', 'Design Patterns', 'TDD', 'Microservices', 'Event-Driven'] },
+];
+
 export function SkillsShowcase({ locale, dictionary }: SkillsShowcaseProps) {
-  const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 
   return (
-    <section
-      ref={ref}
-      className="section-padding border-t border-neutral-200 dark:border-neutral-800 bg-neutral-50/40 dark:bg-neutral-900/10"
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
-      <div className="container-custom">
-
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.4 }}
-          className="flex items-end justify-between mb-12"
+      <section id="stack" className="home-section px-6 md:px-12">
+        {/* Anchor label */}
+        <div
+          className="inline-flex items-center gap-2 pb-8"
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '11px',
+            fontWeight: 500,
+            letterSpacing: '0.08em',
+            color: '#71717a',
+          }}
         >
-          <div>
-            <p className="label-mono mb-2">Expertise</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-neutral-50 tracking-tight">
-              {dictionary.title}
-            </h2>
-          </div>
-          <Link
-            href={`/${locale}/about`}
-            className="hidden sm:inline-flex items-center gap-1.5 font-mono text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200"
-          >
-            {locale === 'pt-BR' ? 'Ver mais' : 'See more'}
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </Link>
-        </motion.div>
+          <span style={{ color: '#a3e635', fontWeight: 500 }}>//</span>
+          {dictionary.stackAnchor}
+        </div>
 
-        {/* Skills — table-like rows */}
-        <div className="divide-y divide-neutral-200 dark:divide-neutral-800">
-          {skillCategories.slice(0, 4).map((category, catIndex) => (
-            <motion.div
-              key={category.id}
-              initial={{ opacity: 0, y: 8 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: catIndex * 0.07 }}
-              className="grid grid-cols-1 sm:grid-cols-[140px_1fr] gap-3 sm:gap-8 py-5"
-            >
-              <div className="flex sm:items-center">
-                <span className="label-mono">{category.name[locale]}</span>
+        {/* Heading */}
+        <h2
+          style={{
+            fontSize: 'clamp(36px, 5vw, 56px)',
+            fontWeight: 700,
+            letterSpacing: '-0.02em',
+            lineHeight: 1,
+            color: '#fafafa',
+            marginBottom: '48px',
+          }}
+        >
+          {dictionary.stackTitle}
+        </h2>
+
+        {/* Two-column grid */}
+        <div className="stack-grid grid">
+          {GROUPS.map(({ id, label, skills }, groupIdx) => (
+            <React.Fragment key={id}>
+              {/* Label cell */}
+              <div
+                style={{
+                  padding: '24px 0',
+                  borderTop: groupIdx === 0 ? undefined : '1px solid #18181b',
+                }}
+              >
+                <span
+                  style={{
+                    color: '#a3e635',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '11px',
+                    marginRight: 8,
+                  }}
+                >
+                  {id}
+                </span>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '11px',
+                    letterSpacing: '0.18em',
+                    textTransform: 'uppercase',
+                    color: '#71717a',
+                  }}
+                >
+                  {label}
+                </span>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <span key={skill} className="tech-tag">
+
+              {/* Chips cell */}
+              <div
+                style={{
+                  padding: '24px 0',
+                  borderTop: groupIdx === 0 ? undefined : '1px solid #18181b',
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: 10,
+                  alignItems: 'flex-start',
+                  alignContent: 'flex-start',
+                }}
+              >
+                {skills.map((skill) => (
+                  <span
+                    key={skill}
+                    onMouseEnter={() => setHoveredSkill(skill)}
+                    onMouseLeave={() => setHoveredSkill(null)}
+                    className="inline-flex items-center gap-2 rounded-full transition-all duration-200 cursor-default"
+                    style={{
+                      fontFamily: 'var(--font-inter)',
+                      fontSize: 14,
+                      padding: '6px 14px',
+                      color: hoveredSkill === skill ? '#a3e635' : '#e4e4e7',
+                      border: `1px solid ${hoveredSkill === skill ? '#a3e635' : '#27272a'}`,
+                      background: hoveredSkill === skill ? 'rgba(26,46,5,0.3)' : 'rgba(24,24,27,0.8)',
+                    }}
+                  >
+                    <span
+                      style={{
+                        display: 'block',
+                        borderRadius: 9999,
+                        width: 5,
+                        height: 5,
+                        background: hoveredSkill === skill ? '#a3e635' : '#52525b',
+                        flexShrink: 0,
+                      }}
+                    />
                     {skill}
                   </span>
                 ))}
               </div>
-            </motion.div>
+            </React.Fragment>
           ))}
         </div>
-
-        {/* Mobile: link to about */}
-        <div className="mt-8 sm:hidden">
-          <Link
-            href={`/${locale}/about`}
-            className="inline-flex items-center gap-1.5 font-mono text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200"
-          >
-            {locale === 'pt-BR' ? 'Ver mais' : 'See more'}
-            <ArrowUpRight className="w-3 h-3" />
-          </Link>
-        </div>
-      </div>
-    </section>
+      </section>
+    </motion.div>
   );
 }

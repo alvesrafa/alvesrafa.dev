@@ -17,6 +17,22 @@
       "description": "Get in touch to discuss your project or collaboration opportunities. Available for consulting and full-stack development."
     }
   },
+  "statusBar": {
+    "available": "FREELANCE · Q2 '26",
+    "role": "tech_lead @ luby_software",
+    "location": "ilhabela · sp — br",
+    "timezone": "GMT-3"
+  },
+  "sections": {
+    "workAnchor": "selected work · 04",
+    "workTitle": "Things I've shipped.",
+    "stackAnchor": "stack · what i reach for",
+    "stackTitle": "Tools, in order of grip.",
+    "pathAnchor": "path · career log",
+    "pathTitle": "How I got here.",
+    "contactAnchor": "contact · let's talk",
+    "contactHeading": "Got a hard problem?"
+  },
   "nav": {
     "home": "Home",
     "about": "About",
@@ -30,6 +46,12 @@
     "name": "Rafael Alves",
     "role": "Tech Lead & Software architect",
     "tagline": "Crafting high-performance web experiences from database to deployment. Specializing in full-stack development with TypeScript, React, Node.js, and cloud architecture.",
+    "availability": "Available for freelance & short-term projects",
+    "ctaPrimary": "Selected work",
+    "metaYears": "Years shipping",
+    "metaDeploys": "Production deploys",
+    "metaTeam": "Team",
+    "metaCertified": "AWS certified",
     "cta": {
       "projects": "View Projects",
       "contact": "Get in Touch"
@@ -79,12 +101,14 @@
     "title": "Get in Touch",
     "subtitle": "Let's work together",
     "description": "Have a project in mind or want to discuss collaboration opportunities? I'd love to hear from you.",
+    "replyTime": "Usually replies within 24h.",
+    "contractAvailability": "Available Q2 2026 for freelance & contract work.",
     "info": {
       "title": "Contact Information",
       "email": "Email",
       "location": "Location",
       "availability": "Availability",
-      "availabilityText": "Open to new opportunities"
+      "availabilityText": "Open to freelance & contract work"
     },
     "send":"Send me an email.",
     "social": {
@@ -92,6 +116,9 @@
     }
   },
   "footer": {
+    "build": "build",
+    "tagline": "Rafael Alves · Ilhabela, BR · hand-coded",
+    "scrollTop": "↑ scroll top",
     "copyright": "All rights reserved.",
     "builtWith": "Built with",
     "and": "and",

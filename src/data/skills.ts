@@ -38,6 +38,9 @@ export const skillCategories: SkillCategory[] = [
       'GoLang',
       'REST APIs',
       'GraphQL',
+      'Vitest',
+      'Jest',
+      'PHPUnit',
     ],
   },
   {
@@ -66,8 +69,7 @@ export const skillCategories: SkillCategory[] = [
       'Docker',
       'Kubernetes',
       'AWS',
-      'Cloud Storage',
-      'Volumes',
+      'Azure',
       'Vercel',
       'GitHub Actions',
       'CI/CD',
@@ -75,6 +77,22 @@ export const skillCategories: SkillCategory[] = [
       'Nginx',
       'RabbitMQ',
       'Kafka',
+    ],
+  },
+  {
+    id: 'architecture',
+    name: {
+      en: 'Architecture',
+      'pt-BR': 'Arquitetura',
+    },
+    skills: [
+      'Clean Architecture',
+      'DDD',
+      'SOLID',
+      'Design Patterns',
+      'TDD',
+      'Microservices',
+      'Event-Driven',
     ],
   },
 ];

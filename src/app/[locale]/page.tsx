@@ -4,8 +4,8 @@ import { generatePageMetadata } from '@/lib/seo/metadata';
 import { HeroSection } from '@/components/organisms/HeroSection';
 import { FeaturedProjects } from '@/components/organisms/FeaturedProjects';
 import { SkillsShowcase } from '@/components/organisms/SkillsShowcase';
+import { Experience } from '@/components/organisms/Experience';
 import { CTASection } from '@/components/organisms/CTASection';
-import { getGitHubRepos } from '@/lib/github/api';
 import type { Locale } from '@/types';
 
 interface HomePageProps {
@@ -28,28 +28,34 @@ export async function generateMetadata({
 export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
   const dictionary = await getDictionary(locale as Locale);
-  const repos = await getGitHubRepos();
-  const featuredRepos = repos.slice(0, 3);
 
   return (
     <>
       {/* Hero Section */}
       <HeroSection
         locale={locale as Locale}
-        dictionary={dictionary.hero}
+        dictionary={{
+          availability: dictionary.hero.availability,
+          ctaPrimary: dictionary.hero.ctaPrimary,
+          metaYears: dictionary.hero.metaYears,
+          metaDeploys: dictionary.hero.metaDeploys,
+          metaTeam: dictionary.hero.metaTeam,
+          metaCertified: dictionary.hero.metaCertified,
+        }}
+        statusBarDictionary={{
+          available: dictionary.statusBar.available,
+          role: dictionary.statusBar.role,
+          location: dictionary.statusBar.location,
+          timezone: dictionary.statusBar.timezone,
+        }}
       />
 
       {/* Featured Projects Section */}
       <FeaturedProjects
-        repos={featuredRepos}
         locale={locale as Locale}
         dictionary={{
-          title: dictionary.projects.title,
-          description: dictionary.projects.description,
-          viewProject: dictionary.projects.viewProject,
-          viewCode: dictionary.projects.viewCode,
-          viewAll: locale === 'pt-BR' ? 'Ver todos os projetos' : 'View all projects',
-          noProjects: dictionary.projects.noProjects,
+          workAnchor: dictionary.sections.workAnchor,
+          workTitle: dictionary.sections.workTitle,
         }}
       />
 
@@ -57,7 +63,17 @@ export default async function HomePage({ params }: HomePageProps) {
       <SkillsShowcase
         locale={locale as Locale}
         dictionary={{
-          title: dictionary.about.skills.title,
+          stackAnchor: dictionary.sections.stackAnchor,
+          stackTitle: dictionary.sections.stackTitle,
+        }}
+      />
+
+      {/* Experience Section */}
+      <Experience
+        locale={locale as Locale}
+        dictionary={{
+          pathAnchor: dictionary.sections.pathAnchor,
+          pathTitle: dictionary.sections.pathTitle,
         }}
       />
 
@@ -65,10 +81,10 @@ export default async function HomePage({ params }: HomePageProps) {
       <CTASection
         locale={locale as Locale}
         dictionary={{
-          title: dictionary.contact.title,
-          subtitle: dictionary.contact.subtitle,
-          description: dictionary.contact.description,
-          button: dictionary.contact.title,
+          contactAnchor: dictionary.sections.contactAnchor,
+          contactHeading: dictionary.sections.contactHeading,
+          replyTime: dictionary.contact.replyTime,
+          contractAvailability: dictionary.contact.contractAvailability,
         }}
       />
     </>
