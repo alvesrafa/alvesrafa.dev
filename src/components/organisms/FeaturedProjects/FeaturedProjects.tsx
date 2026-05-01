@@ -1,206 +1,265 @@
 "use client";
 
 import { featuredProjects } from "@/data/featured-projects";
-import { cn } from "@/lib/utils/cn";
-import type { Locale } from "@/types";
-import { motion, useInView } from "framer-motion";
-import { ArrowUpRight, Github } from "lucide-react";
-import Link from "next/link";
-import { useRef } from "react";
-
-interface Repository {
-  id: number;
-  name: string;
-  description: string | null;
-  html_url: string;
-  homepage: string | null;
-  language: string | null;
-  stargazers_count: number;
-  forks_count: number;
-  topics: string[];
-}
+import type { GitHubRepo, Locale } from "@/types";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import { useRef, useState } from "react";
 
 interface FeaturedProjectsProps {
-  repos: Repository[];
   locale: Locale;
+  githubRepos?: GitHubRepo[];
   dictionary: {
-    title: string;
-    description: string;
-    viewProject: string;
-    viewCode: string;
-    viewAll: string;
-    noProjects: string;
+    workAnchor: string;
+    workTitle: string;
   };
 }
 
-function ProjectRow({
-  repo,
-  index,
-  dictionary,
-}: {
-  repo: Repository;
-  index: number;
-  dictionary: { viewProject: string; viewCode: string };
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-40px" });
+type DisplayProject = {
+  id: string;
+  name: string;
+  description: string;
+  homepage?: string;
+  topics: string[];
+  year: string;
+  previewImage?: string;
+};
 
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 16 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{
-        duration: 0.45,
-        delay: index * 0.08,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      }}
-      className="group grid grid-cols-1 lg:grid-cols-[64px_1fr_auto] gap-4 lg:gap-8 items-start py-8 border-t border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50/40 dark:hover:bg-neutral-900/20 transition-colors duration-200 px-2 -mx-2 rounded-lg"
-    >
-      {/* Index */}
-      <div className="font-mono text-xs text-neutral-300 dark:text-neutral-600 tracking-widest pt-1 select-none">
-        {String(index + 1).padStart(2, "0")}
-      </div>
+const FIXED_NAMES = new Set(featuredProjects.map((p) => p.id.toLowerCase()));
 
-      {/* Content */}
-      <div className="min-w-0">
-        <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-50 mb-2 group-hover:text-primary-500 dark:group-hover:text-primary-400 transition-colors duration-200">
-          {repo.name}
-        </h3>
-        <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4 leading-relaxed max-w-2xl">
-          {repo.description || "No description available"}
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {repo.language && <span className="tech-tag">{repo.language}</span>}
-          {repo.topics.slice(0, 4).map((topic) => (
-            <span key={topic} className="tech-tag">
-              {topic}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Links */}
-      <div className="flex items-center gap-4 lg:flex-col lg:items-end lg:gap-3 pt-0.5 shrink-0">
-        {repo.homepage && (
-          <Link
-            href={repo.homepage}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 font-mono text-xs font-medium uppercase tracking-wide text-neutral-600 dark:text-neutral-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200"
-          >
-            {dictionary.viewProject}
-            <ArrowUpRight className="w-3 h-3" />
-          </Link>
-        )}
-        {repo.html_url && (
-          <Link
-            href={repo.html_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 font-mono text-xs font-medium uppercase tracking-wide text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors duration-200"
-          >
-            <Github className="w-3.5 h-3.5" />
-            Code
-          </Link>
-        )}
-      </div>
-    </motion.div>
-  );
-}
-
-export function FeaturedProjects({
-  repos,
-  locale,
-  dictionary,
-}: FeaturedProjectsProps) {
-  const headerRef = useRef<HTMLDivElement>(null);
-  const isHeaderInView = useInView(headerRef, { once: true });
-
-  const featuredAsRepos: Repository[] = featuredProjects.map((p, i) => ({
-    id: -(i + 1),
+function normalizeRepos(githubRepos: GitHubRepo[], locale: Locale): DisplayProject[] {
+  const fixed: DisplayProject[] = featuredProjects.map((p) => ({
+    id: p.id,
     name: p.name,
     description: p.description[locale],
-    html_url: "",
     homepage: p.homepage,
-    language: p.language,
-    stargazers_count: 0,
-    forks_count: 0,
     topics: p.topics,
+    year: p.year,
+    previewImage: p.previewImage,
   }));
 
-  const allRepos = [...featuredAsRepos, ...repos];
+  const fromGitHub: DisplayProject[] = githubRepos
+    .filter((r) => !FIXED_NAMES.has(r.name.toLowerCase().replace(/[.-]/g, "")))
+    .map((r) => ({
+      id: String(r.id),
+      name: r.name,
+      description: r.description ?? "",
+      homepage: r.homepage ?? r.html_url,
+      topics: r.topics,
+      year: new Date(r.updated_at).getFullYear().toString(),
+    }));
+
+  return [...fixed, ...fromGitHub];
+}
+
+export function FeaturedProjects({ locale, githubRepos = [], dictionary }: FeaturedProjectsProps) {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [previewTop, setPreviewTop] = useState(0);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  const allProjects = normalizeRepos(githubRepos, locale);
+  const hoveredProject = hoveredId ? allProjects.find((p) => p.id === hoveredId) : null;
 
   return (
-    <section className="section-padding border-t border-neutral-200 dark:border-neutral-800">
-      <div className="container-custom">
-        {/* Section header */}
-        <div ref={headerRef} className="flex items-end justify-between mb-4">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={isHeaderInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.4 }}
-          >
-            <p className="label-mono mb-2">Portfolio</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-neutral-50 tracking-tight">
-              {dictionary.title}
-            </h2>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={isHeaderInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.4, delay: 0.2 }}
-          >
-            <Link
-              href={`/${locale}/projects`}
-              className={cn(
-                "hidden sm:inline-flex items-center gap-1.5",
-                "font-mono text-xs font-medium uppercase tracking-wide",
-                "text-neutral-500 dark:text-neutral-400",
-                "hover:text-primary-500 dark:hover:text-primary-400",
-                "transition-colors duration-200"
-              )}
-            >
-              {dictionary.viewAll}
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </Link>
-          </motion.div>
+    <section id="work" className="home-section px-6 md:px-12">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+      >
+        {/* Anchor label */}
+        <div
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "11px",
+            fontWeight: 500,
+            letterSpacing: "0.08em",
+            color: "#71717a",
+          }}
+          className="inline-flex items-center gap-2 pb-8"
+        >
+          <span style={{ color: "#a3e635", fontWeight: 500 }}>//</span>
+          {dictionary.workAnchor}
         </div>
 
-        {/* Projects list */}
-        {allRepos.length > 0 ? (
-          <div>
-            {allRepos.map((repo, index) => (
-              <ProjectRow
-                key={repo.id}
-                repo={repo}
-                index={index}
-                dictionary={{
-                  viewProject: dictionary.viewProject,
-                  viewCode: dictionary.viewCode,
+        {/* Heading */}
+        <h2
+          style={{
+            fontSize: "clamp(36px, 5vw, 56px)",
+            fontWeight: 700,
+            letterSpacing: "-0.02em",
+            lineHeight: 1,
+            color: "#fafafa",
+          }}
+          className="mb-12"
+        >
+          {dictionary.workTitle}
+        </h2>
+
+        {/* Work list */}
+        <div ref={listRef} className="relative">
+          {/* Floating preview */}
+          <AnimatePresence>
+            {hoveredProject?.previewImage && (
+              <motion.div
+                key={hoveredProject.id}
+                initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                transition={{ duration: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="absolute right-0 rounded-xl overflow-hidden pointer-events-none z-10 hidden md:block"
+                style={{
+                  top: previewTop,
+                  width: 360,
+                  aspectRatio: "16/10",
+                  background: "#18181b",
+                  border: "1px solid #27272a",
+                  boxShadow:
+                    "0 30px 60px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(163,230,53,0.08)",
                 }}
-              />
-            ))}
-            <div className="border-t border-neutral-200 dark:border-neutral-800" />
-          </div>
-        ) : (
-          <p className="py-16 text-center font-mono text-sm text-neutral-400 dark:text-neutral-500">
-            {dictionary.noProjects}
-          </p>
-        )}
+              >
+                <Image
+                  src={hoveredProject.previewImage}
+                  alt={hoveredProject.name}
+                  fill
+                  className="object-cover object-top"
+                  sizes="360px"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-        {/* Mobile: view all */}
-        <div className="mt-8 sm:hidden">
-          <Link
-            href={`/${locale}/projects`}
-            className="inline-flex items-center gap-1.5 font-mono text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200"
-          >
-            {dictionary.viewAll}
-            <ArrowUpRight className="w-3 h-3" />
-          </Link>
+          {/* Rows */}
+          {allProjects.map((project, index) => {
+            const isHovered = hoveredId === project.id;
+            const isLast = index === allProjects.length - 1;
+
+            return (
+              <div
+                key={project.id}
+                onClick={() => {
+                  if (project.homepage) {
+                    window.open(project.homepage, "_blank", "noopener,noreferrer");
+                  }
+                }}
+                onMouseEnter={(e) => {
+                  setHoveredId(project.id);
+                  if (listRef.current) {
+                    const rowRect = (
+                      e.currentTarget as HTMLDivElement
+                    ).getBoundingClientRect();
+                    const listRect = listRef.current.getBoundingClientRect();
+                    setPreviewTop(rowRect.top - listRect.top);
+                  }
+                }}
+                onMouseLeave={() => setHoveredId(null)}
+                className="work-row relative grid items-center gap-4 transition-all duration-300 cursor-pointer"
+                style={{
+                  borderTop: "1px solid #18181b",
+                  ...(isLast ? { borderBottom: "1px solid #18181b" } : {}),
+                  padding: isHovered ? "28px 16px" : "28px 0",
+                  background: isHovered
+                    ? "rgba(39,39,42,0.2)"
+                    : "transparent",
+                  transition:
+                    "padding 300ms ease, background 200ms ease",
+                }}
+              >
+                {/* Index */}
+                <div
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "12px",
+                    color: "#3f3f46",
+                  }}
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </div>
+
+                {/* Name */}
+                <div
+                  style={{
+                    fontFamily: "Inter, sans-serif",
+                    fontSize: "28px",
+                    fontWeight: 600,
+                    letterSpacing: "-0.01em",
+                    color: isHovered ? "#a3e635" : "#fafafa",
+                    transition: "color 200ms ease",
+                  }}
+                >
+                  {project.name}
+                </div>
+
+                {/* Description — hidden on mobile */}
+                <div
+                  className="hidden md:block"
+                  style={{
+                    fontSize: "13px",
+                    color: "#a1a1aa",
+                    lineHeight: 1.55,
+                  }}
+                >
+                  {project.description}
+                </div>
+
+                {/* Stack tags — hidden on mobile */}
+                <div className="hidden md:flex flex-wrap gap-1.5">
+                  {project.topics.map((topic) => (
+                    <span
+                      key={topic}
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "10px",
+                        color: "#a1a1aa",
+                        border: "1px solid #27272a",
+                        background: "rgba(39,39,42,0.5)",
+                        padding: "2px 8px",
+                        textTransform: "lowercase",
+                        borderRadius: "4px",
+                      }}
+                    >
+                      {topic}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Year — hidden on mobile */}
+                <div
+                  className="hidden md:block"
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "12px",
+                    color: "#71717a",
+                    textAlign: "right",
+                  }}
+                >
+                  {project.year}
+                </div>
+
+                {/* Arrow — only if homepage exists */}
+                {project.homepage && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      right: 0,
+                      top: "32px",
+                      color: isHovered ? "#a3e635" : "#3f3f46",
+                      transform: isHovered
+                        ? "translate(4px, -4px)"
+                        : "translate(0, 0)",
+                      transition: "color 200ms ease, transform 200ms ease",
+                    }}
+                  >
+                    <ArrowUpRight size={20} strokeWidth={1.6} />
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -1,22 +1,21 @@
-import type { GitHubRepo } from '@/types';
+import type { GitHubRepo } from "@/types";
 
-const GITHUB_API_BASE = 'https://api.github.com';
-const GITHUB_USERNAME = 'alvesrafa';
+const GITHUB_API_BASE = "https://api.github.com";
+const GITHUB_USERNAME = "alvesrafa";
 
 export async function getGitHubRepos(): Promise<GitHubRepo[]> {
   try {
+    const query = `user:${GITHUB_USERNAME}+fork:false+-repo:${GITHUB_USERNAME}/.github`;
     const response = await fetch(
-      `${GITHUB_API_BASE}/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=12&type=owner`,
+      `${GITHUB_API_BASE}/search/repositories?q=${query}&sort=stars&order=desc&per_page=6`,
       {
         headers: {
-          Accept: 'application/vnd.github.v3+json',
+          Accept: "application/vnd.github.v3+json",
           ...(process.env.GITHUB_TOKEN && {
             Authorization: `token ${process.env.GITHUB_TOKEN}`,
           }),
         },
-        next: {
-          revalidate: 3600, // Revalidate every hour
-        },
+        next: { revalidate: 3600 },
       }
     );
 
@@ -24,14 +23,10 @@ export async function getGitHubRepos(): Promise<GitHubRepo[]> {
       throw new Error(`GitHub API error: ${response.status}`);
     }
 
-    const repos: GitHubRepo[] = await response.json();
-
-    // Filter out forked repos and sort by stars
-    return repos
-      .filter((repo) => !repo.name.includes('.github'))
-      .sort((a, b) => b.stargazers_count - a.stargazers_count);
+    const { items }: { items: GitHubRepo[] } = await response.json();
+    return items;
   } catch (error) {
-    console.error('Failed to fetch GitHub repos:', error);
+    console.error("Failed to fetch GitHub repos:", error);
     return [];
   }
 }
@@ -76,10 +71,10 @@ export async function getPinnedRepos(): Promise<GitHubRepo[]> {
       }
     `;
 
-    const response = await fetch('https://api.github.com/graphql', {
-      method: 'POST',
+    const response = await fetch("https://api.github.com/graphql", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
       },
       body: JSON.stringify({ query }),
@@ -115,7 +110,7 @@ export async function getPinnedRepos(): Promise<GitHubRepo[]> {
       updated_at: repo.updatedAt,
     }));
   } catch (error) {
-    console.error('Failed to fetch pinned repos:', error);
+    console.error("Failed to fetch pinned repos:", error);
     // Fall back to regular repos
     return getGitHubRepos();
   }

@@ -6,6 +6,7 @@ import { FeaturedProjects } from '@/components/organisms/FeaturedProjects';
 import { SkillsShowcase } from '@/components/organisms/SkillsShowcase';
 import { Experience } from '@/components/organisms/Experience';
 import { CTASection } from '@/components/organisms/CTASection';
+import { getGitHubRepos } from '@/lib/github/api';
 import type { Locale } from '@/types';
 
 interface HomePageProps {
@@ -27,7 +28,10 @@ export async function generateMetadata({
 
 export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
-  const dictionary = await getDictionary(locale as Locale);
+  const [dictionary, githubRepos] = await Promise.all([
+    getDictionary(locale as Locale),
+    getGitHubRepos(),
+  ]);
 
   return (
     <>
@@ -53,6 +57,7 @@ export default async function HomePage({ params }: HomePageProps) {
       {/* Featured Projects Section */}
       <FeaturedProjects
         locale={locale as Locale}
+        githubRepos={githubRepos}
         dictionary={{
           workAnchor: dictionary.sections.workAnchor,
           workTitle: dictionary.sections.workTitle,
