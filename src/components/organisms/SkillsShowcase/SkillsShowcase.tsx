@@ -13,11 +13,12 @@ interface SkillsShowcaseProps {
 }
 
 const GROUPS = [
-  { id: '01', label: 'Frontend', skills: ['TypeScript', 'React', 'Next.js', 'React Native', 'Expo', 'Tailwind', 'Zustand'] },
-  { id: '02', label: 'Backend', skills: ['Node.js', 'NestJS', 'Express', 'Go', 'PHP · Laravel', 'REST · GraphQL', 'Vitest · Jest', 'PHPUnit'] },
-  { id: '03', label: 'Data', skills: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Prisma', 'TypeORM', 'Kafka · RabbitMQ'] },
-  { id: '04', label: 'Cloud', skills: ['AWS', 'Azure', 'Docker', 'Kubernetes', 'Vercel', 'GitHub Actions', 'CI/CD', 'Nginx'] },
-  { id: '05', label: 'Architecture', skills: ['Clean Architecture', 'DDD', 'SOLID', 'Design Patterns', 'TDD', 'Microservices', 'Event-Driven'] },
+  { id: '01', label: 'Languages', skills: ['TypeScript', 'JavaScript', 'PHP', 'Go', 'SQL'] },
+  { id: '02', label: 'Backend', skills: ['Node.js', 'NestJS', 'Express', 'AdonisJS', 'Laravel', 'REST · GraphQL', 'Vitest · Jest', 'PHPUnit'] },
+  { id: '03', label: 'Web · Mobile', skills: ['React', 'Next.js', 'InertiaJS', 'React Native', 'Expo', 'Tailwind', 'Zustand'] },
+  { id: '04', label: 'Data', skills: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Prisma', 'TypeORM', 'Kafka · RabbitMQ'] },
+  { id: '05', label: 'Cloud', skills: ['AWS', 'Azure', 'Docker', 'Kubernetes', 'Vercel', 'GitHub Actions', 'CI/CD', 'Nginx'] },
+  { id: '06', label: 'Architecture', skills: ['Clean Architecture', 'DDD', 'SOLID', 'Design Patterns', 'TDD', 'Microservices', 'Event-Driven'] },
 ];
 
 export function SkillsShowcase({ locale, dictionary }: SkillsShowcaseProps) {
