@@ -8,7 +8,7 @@ import { TextReveal } from '@/components/effects/TextReveal';
 import { cn } from '@/lib/utils/cn';
 import type { Certification, Education, Experience, Locale, LocalizedString, SkillCategory } from '@/types';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Award, Briefcase, Code2, GraduationCap, MapPin, Sparkles } from 'lucide-react';
+import { ArrowRight, Award, Briefcase, Code2, FileDown, GraduationCap, MapPin, Sparkles } from 'lucide-react';
 import { useRef } from 'react';
 
 interface PersonalInfo {
@@ -17,6 +17,7 @@ interface PersonalInfo {
   email: string;
   location: string;
   role: LocalizedString;
+  resumeUrl: LocalizedString;
 }
 
 interface AboutPageClientProps {
@@ -126,6 +127,19 @@ export function AboutPageClient({
             <MapPin className="h-5 w-5 text-accent-500" />
             <span className="font-medium">{personalInfo.location}</span>
           </motion.div>
+
+          <motion.a
+            href={personalInfo.resumeUrl[locale]}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.6 }}
+            className="inline-flex items-center gap-2 mt-8 px-5 py-2.5 rounded-full bg-primary-500 text-neutral-950 font-medium hover:bg-primary-400 transition-colors"
+          >
+            <FileDown className="h-4 w-4" />
+            {dictionary.about.downloadCV}
+          </motion.a>
         </motion.div>
 
         {/* Decorative elements */}
@@ -253,7 +267,7 @@ export function AboutPageClient({
                           {edu.institution}
                         </p>
                         <p className="text-sm text-neutral-500 mt-1">
-                          {edu.period.start} - {edu.period.end}
+                          {edu.period.start} - {edu.period.end ?? (locale === 'pt-BR' ? 'Em andamento' : 'In progress')}
                         </p>
                         {edu.description && (
                           <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-3">

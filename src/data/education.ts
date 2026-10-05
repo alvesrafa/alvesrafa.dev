@@ -2,6 +2,22 @@ import type { Education, Certification } from '@/types';
 
 export const education: Education[] = [
   {
+    id: '2',
+    institution: 'PUC Minas',
+    degree: {
+      en: 'Postgraduate Specialization',
+      'pt-BR': 'Pós-graduação',
+    },
+    field: {
+      en: 'Distributed Software Architecture',
+      'pt-BR': 'Arquitetura de Software Distribuído',
+    },
+    period: {
+      start: '2026',
+      end: null,
+    },
+  },
+  {
     id: '1',
     institution: 'Instituto Federal de São Paulo (IFSP)',
     degree: {

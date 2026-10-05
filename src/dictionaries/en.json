@@ -6,7 +6,7 @@
     },
     "about": {
       "title": "About Me",
-      "description": "Learn about my journey as a software developer and tech lead. 5+ years of experience in full-stack development with React, Node.js, and AWS."
+      "description": "Learn about my journey as a software developer and tech lead. 6+ years of experience in full-stack development with React, Node.js, and AWS."
     },
     "projects": {
       "title": "Projects",
@@ -62,7 +62,7 @@
     "title": "About Me",
     "subtitle": "Get to know my journey",
     "intro": "When I finished my degree in Systems Analysis and Development in 2019, I discovered my passion for web development through JavaScript and TypeScript. Since then, I've been dedicated to building robust applications using Node.js, React, and React Native.",
-    "extended": "With experience across multiple projects, programming languages, and deployment environments, I bring a versatile skill set to every challenge. Currently leading development teams at Luby Software, I focus on driving technical excellence, defining clean code standards, and mentoring developers to reach their full potential.",
+    "extended": "I work end to end across TypeScript (Node.js, React, React Native) and PHP (Laravel, InertiaJS), from API and database design to production deployment on AWS and Azure. As Tech Lead at Luby Software, I lead technical direction for my team, define code and security standards, mentor developers, and work alongside product on complex problems.",
     "experience": {
       "title": "Professional Experience",
       "current": "Present"

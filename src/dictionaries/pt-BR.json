@@ -6,7 +6,7 @@
     },
     "about": {
       "title": "Sobre Mim",
-      "description": "Conheça minha jornada como desenvolvedor de software e tech lead. 5+ anos de experiência em desenvolvimento full-stack com React, Node.js e AWS."
+      "description": "Conheça minha jornada como desenvolvedor de software e tech lead. 6+ anos de experiência em desenvolvimento full-stack com React, Node.js e AWS."
     },
     "projects": {
       "title": "Projetos",
@@ -62,7 +62,7 @@
     "title": "Sobre Mim",
     "subtitle": "Conheça minha jornada",
     "intro": "Quando finalizei minha graduação em Análise e Desenvolvimento de Sistemas em 2019, descobri minha paixão pelo desenvolvimento web através do JavaScript e TypeScript. Desde então, tenho me dedicado a construir aplicações robustas usando Node.js, React e React Native.",
-    "extended": "Com experiência em múltiplos projetos, linguagens de programação e ambientes de deploy, trago um conjunto versátil de habilidades para cada desafio. Atualmente liderando equipes de desenvolvimento na Luby Software, foco em impulsionar a excelência técnica, definir padrões de código limpo e mentorar desenvolvedores para alcançarem seu potencial máximo.",
+    "extended": "Atuo ponta a ponta com TypeScript (Node.js, React, React Native) e PHP (Laravel, InertiaJS), do desenho de APIs e modelagem de dados até a publicação em produção na AWS e Azure. Como Tech Lead na Luby Software, lidero a direção técnica do time, defino padrões de código e segurança, mentoro desenvolvedores e atuo junto ao produto na resolução de problemas complexos.",
     "experience": {
       "title": "Experiência Profissional",
       "current": "Atual"

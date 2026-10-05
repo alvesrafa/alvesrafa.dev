@@ -35,6 +35,7 @@ export const skillCategories: SkillCategory[] = [
       'AdonisJS',
       'PHP',
       'Laravel',
+      'InertiaJS',
       'GoLang',
       'REST APIs',
       'GraphQL',

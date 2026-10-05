@@ -3,32 +3,42 @@
 
 ## About
 Rafael Alves de Jesus is a Tech Lead at Luby Software, based in Ilhabela, São Paulo, Brazil.
-He specializes in React, Next.js, Node.js, TypeScript, and cloud architecture (AWS).
-With 5+ years of experience in full-stack development, he builds scalable web and mobile applications.
+He works end to end across TypeScript (Node.js, React, React Native) and PHP (Laravel, InertiaJS), from API and database design to production deployment on AWS and Azure.
+With 6+ years of experience in full-stack development, he builds and leads web and mobile applications.
 
 ## Contact
 - Email: alvesrafa.dev@gmail.com
 - LinkedIn: https://www.linkedin.com/in/alvrafael/
 - GitHub: https://github.com/alvesrafa
 - Website: https://alvesrafa.dev
+- Links: https://linktr.ee/alvesrafa.dev
+- Resume (EN): https://drive.google.com/file/d/1DO4cXva4s-S53G6KV_yfsgz4r8QvxUay/view
+- Resume (PT-BR): https://drive.google.com/file/d/1cEcqO_zaErusmDMY7IapJL7oT8X7CntZ/view
 
 ## Current Role
 Tech Lead at Luby Software (March 2025 - Present)
-- Leading development teams in technical excellence and innovation
-- Defining clean code standards and security practices
-- Overseeing cloud deployments with AWS microservices
-- Mentoring developers and collaborating on product strategy
+- Leading technical direction, code standards, security practices and architecture decisions
+- Designing REST APIs and microservices in Node.js (NestJS, Express, AdonisJS)
+- Building React (Next.js, Vite) web apps and offline-first React Native apps
+- Developing PHP/Laravel applications with InertiaJS, including legacy systems
+- Deploying and operating services on AWS and Azure with Docker and Kubernetes
+- Mentoring trainees and junior developers through code review and pairing
+
+## Previous
+- Full Stack Developer (Junior to Mid-Level) at Luby Software (Oct 2020 - Mar 2025)
+- Junior Full Stack Developer at Campeão Sistemas (Apr 2020 - Oct 2020)
 
 ## Skills
 Frontend: React, Next.js, React Native, Expo, TypeScript, JavaScript, Tailwind CSS
-Backend: Node.js, NestJS, Express, AdonisJS, PHP, Laravel, GoLang
+Backend: Node.js, NestJS, Express, AdonisJS, PHP, Laravel, InertiaJS, GoLang
 Databases: PostgreSQL, MySQL, MongoDB, Redis
-Cloud & Tools: AWS, Docker, Git, Vercel, CI/CD
+Cloud & Tools: AWS, Azure, Docker, Kubernetes, Git, Vercel, CI/CD
 
 ## Education
+- Postgraduate Specialization in Distributed Software Architecture - PUC Minas (2026 - in progress)
 - Technologist in Systems Analysis and Development - IFSP (2017-2019)
 - AWS Certified Cloud Practitioner (2023-2026)
 
 ## Languages
 - Portuguese (Native)
-- English (Intermediate)
+- English (Intermediate - B1)

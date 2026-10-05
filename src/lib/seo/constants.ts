@@ -3,7 +3,7 @@ import { personalInfo } from '@/data/navigation';
 export const siteConfig = {
   name: personalInfo.shortName,
   title: 'Rafael Alves | Tech Lead & Full Stack Developer',
-  description: 'Tech Lead at Luby Software specializing in React, Next.js, Node.js, and cloud architecture. Building scalable web and mobile applications.',
+  description: 'Tech Lead at Luby Software specializing in TypeScript, React, Next.js, Node.js, PHP/Laravel, and cloud architecture on AWS and Azure. Building scalable web and mobile applications.',
   url: personalInfo.siteUrl,
   ogImage: `${personalInfo.siteUrl}/images/og/og-default.png`,
   locale: {

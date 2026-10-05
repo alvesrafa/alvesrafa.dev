@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Moon, Sun } from 'lucide-react';
+import { FileDown, Moon, Sun } from 'lucide-react';
 import { useTheme } from '@/hooks/useTheme';
 import { useLocale } from '@/context/LocaleContext';
+import { personalInfo } from '@/data/navigation';
 import { cn } from '@/lib/utils/cn';
 import type { Locale } from '@/types';
 
@@ -97,6 +98,18 @@ export function RailNav({ locale }: RailNavProps) {
 
       {/* Controls */}
       <div className="flex flex-col items-center gap-2 mt-5">
+        <a
+          href={personalInfo.resumeUrl[currentLocale]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center w-8 h-8 rounded-[6px] text-neutral-500 hover:text-primary-400 transition-colors duration-200"
+          style={{ border: '1px solid #27272a' }}
+          aria-label={currentLocale === 'pt-BR' ? 'Baixar currículo' : 'Download resume'}
+          title={currentLocale === 'pt-BR' ? 'Currículo' : 'Resume'}
+        >
+          <FileDown size={14} />
+        </a>
+
         {mounted && (
           <button
             onClick={toggleTheme}

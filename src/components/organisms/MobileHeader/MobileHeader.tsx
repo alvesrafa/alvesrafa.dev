@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useTheme } from '@/hooks/useTheme';
 import { useLocale } from '@/context/LocaleContext';
+import { personalInfo } from '@/data/navigation';
 import type { Locale } from '@/types';
 
 interface MobileHeaderProps {
@@ -90,6 +91,19 @@ export function MobileHeader({ locale }: MobileHeaderProps) {
                   {label}
                 </motion.a>
               ))}
+              <motion.a
+                href={personalInfo.resumeUrl[currentLocale]}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: NAV_ITEMS.length * 0.06 }}
+                onClick={() => setIsOpen(false)}
+                className="font-mono text-[10px] tracking-[0.18em] uppercase text-primary-400 hover:text-neutral-50 transition-colors py-3"
+                style={{ borderBottom: '1px solid #18181b' }}
+              >
+                {currentLocale === 'pt-BR' ? 'Currículo ↗' : 'Resume ↗'}
+              </motion.a>
             </nav>
 
             <div className="flex items-center gap-3 px-8 pb-8">

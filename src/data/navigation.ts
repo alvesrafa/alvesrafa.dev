@@ -58,5 +58,9 @@ export const personalInfo = {
   email: 'alvesrafa.dev@gmail.com',
   github: 'alvesrafa',
   linkedin: 'alvrafael',
+  resumeUrl: {
+    en: 'https://drive.google.com/file/d/1DO4cXva4s-S53G6KV_yfsgz4r8QvxUay/view?usp=sharing',
+    'pt-BR': 'https://drive.google.com/file/d/1cEcqO_zaErusmDMY7IapJL7oT8X7CntZ/view?usp=sharing',
+  },
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://alvesrafa.dev',
 };

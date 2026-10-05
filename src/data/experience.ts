@@ -10,10 +10,10 @@ export const experiences: Experience[] = [
       'pt-BR': 'Tech Lead',
     },
     description: {
-      en: 'Leading development teams in technical excellence and innovation. Defining clean code standards, security practices, and overseeing cloud deployments with AWS. Mentoring developers, providing feedback, and collaborating on product strategy and complex technical challenges.',
-      'pt-BR': 'Liderando equipes de desenvolvimento em excelência técnica e inovação. Definindo padrões de código limpo, práticas de segurança e supervisionando deploys em nuvem com AWS. Mentorando desenvolvedores, fornecendo feedback e colaborando em estratégia de produto e desafios técnicos complexos.',
+      en: 'Leading technical direction for the development team, defining code standards, security practices and architecture decisions across projects. Deploying and operating services on AWS and Azure with Docker and Kubernetes. Mentoring trainees and junior developers through code review and pairing, and working alongside product on complex problems.',
+      'pt-BR': 'Lidero a direção técnica do time de desenvolvimento, definindo padrões de código, práticas de segurança e decisões de arquitetura nos projetos. Publico e opero serviços em AWS e Azure com Docker e Kubernetes. Mentoro trainees e desenvolvedores júnior por meio de code review e pair programming, e atuo junto ao produto na resolução de problemas complexos.',
     },
-    technologies: ['TypeScript', 'React', 'Next.js', 'Node.js', 'NestJS', 'React Native', 'AWS', 'PostgreSQL'],
+    technologies: ['TypeScript', 'React', 'Next.js', 'Node.js', 'NestJS', 'React Native', 'PHP', 'Laravel', 'AWS', 'Azure', 'Kubernetes', 'PostgreSQL'],
     period: {
       start: '2025-03',
       end: null,
@@ -29,10 +29,10 @@ export const experiences: Experience[] = [
       'pt-BR': 'Desenvolvedor Full Stack Pleno',
     },
     description: {
-      en: 'Strong expertise in TypeScript (Node.js, React, React Native) and PHP. Built scalable APIs and frontends, managed cloud deployments with AWS microservices. Experience with SQL databases, offline-first mobile development, and Docker/DevOps optimization.',
-      'pt-BR': 'Sólida atuação em TypeScript (Node.js, React, React Native) e PHP. Construí APIs e frontends escaláveis, gerenciei deploys em nuvem com microsserviços AWS. Experiência com bancos de dados SQL, desenvolvimento mobile offline-first e otimização Docker/DevOps.',
+      en: 'Designed and maintained REST APIs and microservices in Node.js (NestJS, Express, AdonisJS) consumed by web and mobile clients. Built React applications (Next.js, Vite) with Context API, Redux and Zustand, and delivered offline-first React Native apps (Expo and CLI) with local persistence and conflict resolution on sync. Developed PHP/Laravel applications with InertiaJS, including legacy systems.',
+      'pt-BR': 'Projetei e mantive APIs REST e microsserviços em Node.js (NestJS, Express, AdonisJS) consumidos por clientes web e mobile. Desenvolvi aplicações React (Next.js, Vite) com Context API, Redux e Zustand, e entreguei apps React Native offline first (Expo e CLI) com persistência local e resolução de conflitos na sincronização. Desenvolvi aplicações PHP/Laravel com InertiaJS, incluindo sistemas legados.',
     },
-    technologies: ['TypeScript', 'JavaScript', 'Node.js', 'React', 'React Native', 'PHP', 'Laravel', 'AWS', 'Docker', 'PostgreSQL'],
+    technologies: ['TypeScript', 'Node.js', 'NestJS', 'React', 'Next.js', 'React Native', 'PHP', 'Laravel', 'InertiaJS', 'AWS', 'Docker', 'PostgreSQL', 'MySQL'],
     period: {
       start: '2022-03',
       end: '2025-02',
@@ -66,10 +66,10 @@ export const experiences: Experience[] = [
       'pt-BR': 'Desenvolvedor Full Stack Junior',
     },
     description: {
-      en: 'Developed web applications using React, TypeScript, Styled Components, and Redux. Built and maintained backend features using Node.js. Collaborated with the team on various startup projects.',
-      'pt-BR': 'Desenvolvi aplicações web usando React, TypeScript, Styled Components e Redux. Construí e mantive funcionalidades do backend usando Node.js. Colaborei com a equipe em diversos projetos da startup.',
+      en: 'Built web interfaces in ReactJS with Redux and Styled Components. Developed backend features in TypeScript with Node.js (AdonisJS). Collaborated with the team on various startup projects.',
+      'pt-BR': 'Desenvolvi interfaces web em ReactJS com Redux e Styled Components. Implementei funcionalidades de backend em TypeScript com Node.js (AdonisJS). Colaborei com a equipe em diversos projetos da startup.',
     },
-    technologies: ['React', 'TypeScript', 'JavaScript', 'Node.js', 'MongoDB', 'Styled Components', 'Redux'],
+    technologies: ['React', 'TypeScript', 'JavaScript', 'Node.js', 'AdonisJS', 'MongoDB', 'Styled Components', 'Redux'],
     period: {
       start: '2020-04',
       end: '2020-10',

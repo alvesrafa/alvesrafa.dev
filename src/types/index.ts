@@ -78,7 +78,7 @@ export interface Education {
   field: LocalizedString;
   period: {
     start: string;
-    end: string;
+    end: string | null;
   };
   description?: LocalizedString;
 }

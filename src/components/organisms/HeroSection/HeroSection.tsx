@@ -385,7 +385,7 @@ export function HeroSection({ dictionary, statusBarDictionary }: HeroSectionProp
           {[
             {
               label: dictionary.metaYears,
-              value: '05',
+              value: '06',
               unit: '+',
               big: true,
             },
