@@ -40,7 +40,7 @@ export const socialLinks: SocialLink[] = [
 export const quickActions: QuickAction[] = [
   {
     label: { en: 'Latest Project', 'pt-BR': 'Projeto Mais Recente' },
-    href: 'https://www.convide.site/',
+    href: 'https://batefome.delivery/',
     variant: 'primary',
   },
 ];

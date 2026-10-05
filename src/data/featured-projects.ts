@@ -14,7 +14,7 @@ export const featuredProjects: FeaturedProject[] = [
     topics: ["next", "typescript", "postgres", "oauth"],
     featured: true,
     image: "/images/convide-site.png",
-    year: "2025 — now",
+    year: "2025",
     previewImage: "/images/convide-site.png",
   },
   {

@@ -355,7 +355,7 @@ export function HeroSection({ dictionary, statusBarDictionary }: HeroSectionProp
                   <span style={{ color: '#a3e635' }}>$</span>{' '}
                   <span style={{ color: '#fafafa' }}>now</span>
                 </p>
-                <p style={{ color: '#a1a1aa' }}>building convide.site + mentoring</p>
+                <p style={{ color: '#a1a1aa' }}>building batefome.delivery + mentoring</p>
                 <p>&nbsp;</p>
 
                 {/* comment */}
