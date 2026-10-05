@@ -2,6 +2,22 @@ import type { FeaturedProject } from "@/types";
 
 export const featuredProjects: FeaturedProject[] = [
   {
+    id: "batefome",
+    name: "BateFome",
+    description: {
+      en: "Ordering, POS and delivery platform for restaurants: digital menu, delivery, dine-in and pickup orders, and a real-time management dashboard under the restaurant's own address",
+      "pt-BR":
+        "Plataforma de pedidos, PDV e delivery para restaurantes: catálogo digital, pedidos por delivery, mesa ou retirada e painel de gestão em tempo real no endereço do próprio restaurante",
+    },
+    homepage: "https://batefome.delivery/",
+    language: "TypeScript",
+    topics: ["next", "typescript", "saas", "realtime"],
+    featured: true,
+    image: "/images/batefome-site.png",
+    year: "2026 — now",
+    previewImage: "/images/batefome-site.png",
+  },
+  {
     id: "convide",
     name: "Convide",
     description: {

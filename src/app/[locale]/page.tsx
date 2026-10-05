@@ -44,7 +44,6 @@ export default async function HomePage({ params }: HomePageProps) {
           metaYears: dictionary.hero.metaYears,
           metaDeploys: dictionary.hero.metaDeploys,
           metaTeam: dictionary.hero.metaTeam,
-          metaCertified: dictionary.hero.metaCertified,
         }}
         statusBarDictionary={{
           available: dictionary.statusBar.available,

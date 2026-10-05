@@ -13,7 +13,6 @@ interface HeroSectionProps {
     metaYears: string;
     metaDeploys: string;
     metaTeam: string;
-    metaCertified: string;
   };
   statusBarDictionary: {
     available: string;
@@ -376,7 +375,7 @@ export function HeroSection({ dictionary, statusBarDictionary }: HeroSectionProp
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6, ease }}
-          className="mt-20 grid grid-cols-2 md:grid-cols-4"
+          className="mt-20 grid grid-cols-3"
           style={{
             borderTop: '1px solid #18181b',
             borderBottom: '1px solid #18181b',
@@ -398,12 +397,6 @@ export function HeroSection({ dictionary, statusBarDictionary }: HeroSectionProp
             {
               label: dictionary.metaTeam,
               value: 'Luby Software',
-              unit: '',
-              big: false,
-            },
-            {
-              label: dictionary.metaCertified,
-              value: 'Cloud Practitioner',
               unit: '',
               big: false,
             },
