@@ -319,36 +319,6 @@ export function HeroSection({ dictionary, statusBarDictionary }: HeroSectionProp
                 <p style={{ color: '#a1a1aa' }}>→ rafael_alves</p>
                 <p>&nbsp;</p>
 
-                {/* cat stack.yml */}
-                <p>
-                  <span style={{ color: '#a3e635' }}>$</span>{' '}
-                  <span style={{ color: '#fafafa' }}>cat stack.yml</span>
-                </p>
-                <p>
-                  <span style={{ color: '#bef264' }}>frontend</span>
-                  <span style={{ color: '#71717a' }}>:</span>{' '}
-                  <span style={{ color: '#a1a1aa' }}>[react, next, react_native]</span>
-                </p>
-                <p>
-                  <span style={{ color: '#bef264' }}>backend</span>
-                  <span style={{ color: '#71717a' }}>:</span>
-                  {'  '}
-                  <span style={{ color: '#a1a1aa' }}>[node, nest, laravel, go]</span>
-                </p>
-                <p>
-                  <span style={{ color: '#bef264' }}>cloud</span>
-                  <span style={{ color: '#71717a' }}>:</span>
-                  {'    '}
-                  <span style={{ color: '#a1a1aa' }}>[aws, azure, docker, k8s]</span>
-                </p>
-                <p>
-                  <span style={{ color: '#bef264' }}>db</span>
-                  <span style={{ color: '#71717a' }}>:</span>
-                  {'       '}
-                  <span style={{ color: '#a1a1aa' }}>[postgres, mongo, redis]</span>
-                </p>
-                <p>&nbsp;</p>
-
                 {/* now */}
                 <p>
                   <span style={{ color: '#a3e635' }}>$</span>{' '}

@@ -24,7 +24,7 @@
     "timezone": "GMT-3"
   },
   "sections": {
-    "workAnchor": "selected work · 04",
+    "workAnchor": "selected work · 03",
     "workTitle": "Things I've shipped.",
     "stackAnchor": "stack · end to end",
     "stackTitle": "From database to deploy.",
