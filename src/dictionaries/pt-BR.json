@@ -24,8 +24,9 @@
     "timezone": "GMT-3"
   },
   "sections": {
-    "workAnchor": "projetos selecionados · 03",
-    "workTitle": "Coisas que entreguei.",
+    "workAnchor": "projetos autorais · 03",
+    "workTitle": "Do zero ao ar.",
+    "workNote": "A maior parte do meu trabalho é para clientes, sob NDA. Detalhes na trajetória abaixo e no currículo.",
     "stackAnchor": "stack · ponta a ponta",
     "stackTitle": "Do banco de dados ao deploy.",
     "pathAnchor": "trajetória · carreira",

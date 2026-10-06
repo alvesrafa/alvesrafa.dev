@@ -24,8 +24,9 @@
     "timezone": "GMT-3"
   },
   "sections": {
-    "workAnchor": "selected work · 03",
-    "workTitle": "Things I've shipped.",
+    "workAnchor": "own products · 03",
+    "workTitle": "Zero to shipped.",
+    "workNote": "Most of my work is client work under NDA. Details in the path below and in my resume.",
     "stackAnchor": "stack · end to end",
     "stackTitle": "From database to deploy.",
     "pathAnchor": "path · career log",

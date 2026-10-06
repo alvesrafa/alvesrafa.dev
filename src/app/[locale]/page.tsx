@@ -55,6 +55,7 @@ export default async function HomePage({ params }: HomePageProps) {
         dictionary={{
           workAnchor: dictionary.sections.workAnchor,
           workTitle: dictionary.sections.workTitle,
+          workNote: dictionary.sections.workNote,
         }}
       />
 

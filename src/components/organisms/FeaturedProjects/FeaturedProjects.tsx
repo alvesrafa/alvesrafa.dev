@@ -13,6 +13,7 @@ interface FeaturedProjectsProps {
   dictionary: {
     workAnchor: string;
     workTitle: string;
+    workNote: string;
   };
 }
 
@@ -93,10 +94,17 @@ export function FeaturedProjects({ locale, githubRepos = [], dictionary }: Featu
             lineHeight: 1,
             color: "#fafafa",
           }}
-          className="mb-12"
         >
           {dictionary.workTitle}
         </h2>
+
+        {/* Note */}
+        <p
+          className="mt-5 mb-12 max-w-xl"
+          style={{ fontSize: 15, lineHeight: 1.6, color: "#71717a" }}
+        >
+          {dictionary.workNote}
+        </p>
 
         {/* Work list */}
         <div ref={listRef} className="relative">
